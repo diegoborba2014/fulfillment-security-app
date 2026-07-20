@@ -480,6 +480,10 @@ tbody tr:hover{background:var(--surface-2);}
 .login-card{ width:100%; max-width:380px; background:var(--surface-2); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); padding:32px 28px; }
 .login-status{ margin-top:16px; font-size:12.5px; text-align:center; color:var(--text-muted); min-height:18px; }
 .login-status.err{ color:var(--critical); }
+
+.new-action-form{ border:1px dashed var(--line); border-radius:8px; padding:12px; margin:10px 0; background:var(--surface); }
+.form-status{ font-size:12px; margin-top:8px; color:var(--safe); min-height:16px; }
+.form-status.err{ color:var(--critical); }
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <div class="login-gate" id="loginGate">
@@ -672,8 +676,32 @@ tbody tr:hover{background:var(--surface-2);}
           <h1>Riscos cadastrados</h1>
           <div class="sub" id="riscosSub">Full FBS-RS3</div>
         </div>
+        <button class="btn-primary" id="newRiskToggleBtn" style="width:auto; padding:9px 18px;">+ Novo risco</button>
       </div>
-      <div class="section-note">Clique em um risco para ver a descrição completa, ajustar Probabilidade/Impacto e ver os planos de ação vinculados. Alterações ficam salvas neste navegador.</div>
+      <div class="section-note">Clique em um risco para ver a descrição completa, ajustar Probabilidade/Impacto e ver os planos de ação vinculados.</div>
+
+      <div class="panel" id="newRiskPanel" style="display:none; margin-bottom:14px;">
+        <div class="panel-head"><h2>Novo risco</h2></div>
+        <div class="field"><label>Nome do risco</label><input type="text" id="nrNome" placeholder="Ex.: Falha no controle de acesso da doca 2" /></div>
+        <div class="field"><label>Descrição</label><textarea id="nrDescricao" placeholder="Causas, vetores e consequências do risco" style="height:90px;"></textarea></div>
+        <div class="risk-edit-row">
+          <label>Categoria <input type="text" id="nrCategoria" placeholder="Segurança" style="width:140px;" /></label>
+          <label>Processo <input type="text" id="nrProcesso" placeholder="Controle de Acesso" style="width:160px;" /></label>
+          <label>Dono <input type="text" id="nrDono" placeholder="não definido" style="width:120px;" /></label>
+          <label>Probabilidade
+            <select id="nrP"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>
+          </label>
+          <label>Impacto
+            <select id="nrI"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>
+          </label>
+        </div>
+        <div style="display:flex; gap:8px; margin-top:12px;">
+          <button class="btn-primary" id="nrSaveBtn" style="width:auto; padding:9px 18px;">Criar risco</button>
+          <button class="btn-ghost" id="nrCancelBtn">Cancelar</button>
+        </div>
+        <div class="form-status" id="nrStatus"></div>
+      </div>
+
       <div class="panel-head" style="margin-bottom:12px;">
         <input class="filter-search" id="riscoSearch" placeholder="Buscar risco por nome, processo ou dono…" />
         <div class="filter-row" id="riscoLevelFilter">
@@ -768,9 +796,11 @@ const ACTIONS_SEED=[];
       const raw = localStorage.getItem(STORE_KEY);
       if(raw) return JSON.parse(raw);
     }catch(e){}
-    return { riskOverrides:{}, actionOverrides:{}, tracking:{} };
+    return { riskOverrides:{}, actionOverrides:{}, tracking:{}, customRisks:[], customActions:[] };
   }
   let STORE = loadStore();
+  if(!STORE.customRisks) STORE.customRisks = [];
+  if(!STORE.customActions) STORE.customActions = [];
   function saveStore(){ localStorage.setItem(STORE_KEY, JSON.stringify(STORE)); }
 
   document.getElementById('resetDataBtn').addEventListener('click', ()=>{
@@ -780,12 +810,12 @@ const ACTIONS_SEED=[];
     }
     if(!confirm('Restaurar todos os dados para o estado original das planilhas? Suas edições e registros de acompanhamento serão perdidos.')) return;
     localStorage.removeItem(STORE_KEY);
-    STORE = { riskOverrides:{}, actionOverrides:{}, tracking:{} };
+    STORE = { riskOverrides:{}, actionOverrides:{}, tracking:{}, customRisks:[], customActions:[] };
     renderAll();
   });
 
   function getRisks(){
-    const source = CLOUD ? CLOUD.risks : RISKS_SEED.map(r=>{
+    const source = CLOUD ? CLOUD.risks : RISKS_SEED.concat(STORE.customRisks).map(r=>{
       const ov = STORE.riskOverrides[r.id] || {};
       return Object.assign({}, r, {
         p: ('p' in ov) ? ov.p : r.p,
@@ -796,7 +826,7 @@ const ACTIONS_SEED=[];
     return source.map(r=> Object.assign({}, r, { nivel: (r.p && r.i) ? r.p*r.i : null }));
   }
   function getActions(){
-    const source = CLOUD ? CLOUD.actions : ACTIONS_SEED.map(a=>{
+    const source = CLOUD ? CLOUD.actions : ACTIONS_SEED.concat(STORE.customActions).map(a=>{
       const ov = STORE.actionOverrides[a.id] || {};
       return Object.assign({}, a, {
         status: ('status' in ov) ? ov.status : a.status,
@@ -805,6 +835,48 @@ const ACTIONS_SEED=[];
       });
     });
     return source.map(a=> Object.assign({}, a, { status: normStatus(a.status) }));
+  }
+  function nextLocalId_(prefix, existingIds){
+    let max = 0;
+    existingIds.forEach(id=>{
+      const m = String(id||'').match(new RegExp('^'+prefix+'(\\d+)$'));
+      if(m) max = Math.max(max, parseInt(m[1],10));
+    });
+    return prefix + (max+1);
+  }
+  async function createRisk(data){
+    if(CLOUD){
+      try{
+        const payload = Object.assign({ type:'createRisk', data }, idToken?{idToken}:{});
+        const res = await fetch(cloudUrl, { method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify(payload) });
+        const result = await res.json();
+        if(!result.ok) return result;
+        await cloudFetchAll();
+        return result;
+      }catch(e){ return { ok:false, error:'network' }; }
+    } else {
+      const id = nextLocalId_('R_', RISKS_SEED.concat(STORE.customRisks).map(r=>r.id));
+      STORE.customRisks.push(Object.assign({ id, p:null, i:null, dono:null }, data));
+      saveStore();
+      return { ok:true, id };
+    }
+  }
+  async function createAction(data){
+    if(CLOUD){
+      try{
+        const payload = Object.assign({ type:'createAction', data }, idToken?{idToken}:{});
+        const res = await fetch(cloudUrl, { method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify(payload) });
+        const result = await res.json();
+        if(!result.ok) return result;
+        await cloudFetchAll();
+        return result;
+      }catch(e){ return { ok:false, error:'network' }; }
+    } else {
+      const id = nextLocalId_('A_', ACTIONS_SEED.concat(STORE.customActions).map(a=>a.id));
+      STORE.customActions.push(Object.assign({ id, status:'Não Iniciada' }, data));
+      saveStore();
+      return { ok:true, id };
+    }
   }
   function getTracking(actionId){
     const list = CLOUD ? (CLOUD.tracking[actionId] || []) : (STORE.tracking[actionId] || []);
@@ -1226,7 +1298,29 @@ const ACTIONS_SEED=[];
           </label>
           <span style="color:var(--text-muted);">Nível: <strong style="color:${sevColor(r.nivel)}">${r.nivel!=null?r.nivel:'sem avaliação'}</strong></span>
         </div>
-        <div class="eyebrow" style="margin:14px 0 4px;">Planos de ação vinculados</div>
+        <div class="eyebrow" style="margin:14px 0 4px; display:flex; align-items:center; justify-content:space-between;">
+          <span>Planos de ação vinculados</span>
+          <button class="btn-sm" data-new-action-for="${r.id}" style="background:var(--surface-3); color:var(--text); border:1px solid var(--line);">+ Nova ação</button>
+        </div>
+        <div class="new-action-form" id="newActionForm-${r.id}" style="display:none;">
+          <div class="field"><label>Nome (micro-risco associado à ação)</label><input type="text" data-na-field="microNome" placeholder="Ex.: Falha na revisão periódica das câmeras" /></div>
+          <div class="field"><label>Descrição da ação/controle</label><textarea data-na-field="descricao" style="height:70px;" placeholder="O que precisa ser feito, por quem e como"></textarea></div>
+          <div class="risk-edit-row">
+            <label>Tipo
+              <select data-na-field="tipo">${TIPO_LIST.map(t=>`<option value="${t}">${t}</option>`).join('')}</select>
+            </label>
+            <label>Status
+              <select data-na-field="status">${STATUS_OPTIONS.map(s=>`<option value="${s}">${s}</option>`).join('')}</select>
+            </label>
+            <label>Responsável <input type="text" data-na-field="responsavel" placeholder="não definido" style="width:120px;" /></label>
+            <label>Prazo <input type="text" data-na-field="prazo" placeholder="indefinido" style="width:120px;" /></label>
+          </div>
+          <div style="display:flex; gap:8px; margin-top:10px;">
+            <button class="btn-primary" data-na-save="${r.id}" style="width:auto; padding:8px 16px;">Criar ação</button>
+            <button class="btn-ghost" data-na-cancel="${r.id}">Cancelar</button>
+          </div>
+          <div class="form-status" data-na-status="${r.id}"></div>
+        </div>
         ${actions.length ? actions.map(actionItemHtml).join('') : '<div class="risk-meta" style="padding:8px 0;">Nenhuma ação cadastrada para este risco.</div>'}
       </div>
     </div>`;
@@ -1267,6 +1361,51 @@ const ACTIONS_SEED=[];
     wireTrackToggles(box);
     wireEditableFields(box);
     wireTrackingForms(box);
+    wireNewActionForms(box);
+  }
+
+  function wireNewActionForms(scope){
+    scope.querySelectorAll('[data-new-action-for]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const riskId = btn.dataset.newActionFor;
+        const form = document.getElementById('newActionForm-'+riskId);
+        if(form) form.style.display = form.style.display==='none' ? 'block' : 'none';
+      });
+    });
+    scope.querySelectorAll('[data-na-cancel]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const form = document.getElementById('newActionForm-'+btn.dataset.naCancel);
+        if(form) form.style.display = 'none';
+      });
+    });
+    scope.querySelectorAll('[data-na-save]').forEach(btn=>{
+      btn.addEventListener('click', async ()=>{
+        const riskId = btn.dataset.naSave;
+        const form = document.getElementById('newActionForm-'+riskId);
+        const field = (name)=> form.querySelector('[data-na-field="'+name+'"]').value.trim();
+        const microNome = field('microNome');
+        const statusEl = form.querySelector('[data-na-status]');
+        if(!microNome){ statusEl.textContent = 'Preencha o nome da ação.'; statusEl.classList.add('err'); return; }
+        btn.disabled = true;
+        statusEl.textContent = 'Salvando…'; statusEl.classList.remove('err');
+        const data = {
+          riscoId: riskId,
+          microNome,
+          descricao: field('descricao'),
+          tipo: field('tipo'),
+          status: field('status'),
+          responsavel: field('responsavel') || null,
+          prazo: field('prazo') || null,
+          custo: null
+        };
+        const result = await createAction(data);
+        btn.disabled = false;
+        if(!result.ok){ statusEl.textContent = 'Erro ao salvar: ' + (result.error||'desconhecido'); statusEl.classList.add('err'); return; }
+        renderRiscos();
+        renderPlanos();
+        renderDashboardIfActive();
+      });
+    });
   }
 
   function wireTrackToggles(scope){
@@ -1457,6 +1596,45 @@ const ACTIONS_SEED=[];
     chip.classList.add('active');
     riscoFilter.lvl = chip.dataset.lvl;
     renderRiscos();
+  });
+
+  document.getElementById('newRiskToggleBtn').addEventListener('click', ()=>{
+    const panel = document.getElementById('newRiskPanel');
+    panel.style.display = panel.style.display==='none' ? 'block' : 'none';
+  });
+  document.getElementById('nrCancelBtn').addEventListener('click', ()=>{
+    document.getElementById('newRiskPanel').style.display = 'none';
+  });
+  document.getElementById('nrSaveBtn').addEventListener('click', async ()=>{
+    const nome = document.getElementById('nrNome').value.trim();
+    const statusEl = document.getElementById('nrStatus');
+    if(!nome){ statusEl.textContent = 'Preencha o nome do risco.'; statusEl.classList.add('err'); return; }
+    const btn = document.getElementById('nrSaveBtn');
+    btn.disabled = true;
+    statusEl.textContent = 'Salvando…'; statusEl.classList.remove('err');
+    const pVal = document.getElementById('nrP').value;
+    const iVal = document.getElementById('nrI').value;
+    const data = {
+      nome,
+      descricao: document.getElementById('nrDescricao').value.trim(),
+      categoria: document.getElementById('nrCategoria').value.trim() || null,
+      processo: document.getElementById('nrProcesso').value.trim() || null,
+      dono: document.getElementById('nrDono').value.trim() || null,
+      p: pVal ? parseInt(pVal,10) : null,
+      i: iVal ? parseInt(iVal,10) : null
+    };
+    const result = await createRisk(data);
+    btn.disabled = false;
+    if(!result.ok){ statusEl.textContent = 'Erro ao salvar: ' + (result.error||'desconhecido'); statusEl.classList.add('err'); return; }
+    statusEl.textContent = '';
+    ['nrNome','nrDescricao','nrCategoria','nrProcesso','nrDono'].forEach(id=> document.getElementById(id).value='');
+    document.getElementById('nrP').value = '';
+    document.getElementById('nrI').value = '';
+    document.getElementById('newRiskPanel').style.display = 'none';
+    if(result.id) openRiskIds.add(result.id);
+    renderRiscos();
+    renderDashboardIfActive();
+    renderMatrizIfActive();
   });
 
   function renderAll(){
