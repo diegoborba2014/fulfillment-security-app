@@ -541,6 +541,15 @@ tbody tr:hover{background:var(--surface-2);}
         <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M2 13 L6 7 L9 10 L14 3" stroke="currentColor" stroke-width="1.3" fill="none"/></svg>
         Acompanhamento
       </button>
+      <div class="navlabel">Operação</div>
+      <button class="navbtn" data-view="incidentes">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M8 1 15 14H1Z" stroke="currentColor" stroke-width="1.3" fill="none"/><path d="M8 6v4M8 12h.01" stroke="currentColor" stroke-width="1.3"/></svg>
+        Incidentes <span class="count" id="navCountIncidentes">0</span>
+      </button>
+      <button class="navbtn" data-view="naoconformidades">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/><path d="M8 5v3.5M8 11h.01" stroke="currentColor" stroke-width="1.3"/></svg>
+        Não Conformidades <span class="count" id="navCountNc">0</span>
+      </button>
     </nav>
 
     <div class="sidebar-foot">
@@ -637,6 +646,17 @@ tbody tr:hover{background:var(--surface-2);}
         <div class="panel">
           <div class="panel-head"><h2>Ações por tipo de tratamento</h2></div>
           <div class="status-bars" id="tipoBars"></div>
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-top:16px;">
+        <div class="panel">
+          <div class="panel-head"><h2>Incidentes em aberto</h2></div>
+          <div class="status-bars" id="dashIncidents"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><h2>Não conformidades em aberto</h2></div>
+          <div class="status-bars" id="dashNc"></div>
         </div>
       </div>
     </section>
@@ -759,6 +779,92 @@ tbody tr:hover{background:var(--surface-2);}
         <div id="timelineFeed"></div>
       </div>
     </section>
+
+    <!-- INCIDENTES -->
+    <section class="view" id="view-incidentes">
+      <div class="topbar">
+        <div>
+          <div class="eyebrow">Materialização de riscos</div>
+          <h1>Incidentes</h1>
+          <div class="sub" id="incidentesSub">Registro de ocorrências reais — quando um risco de fato aconteceu</div>
+        </div>
+        <button class="btn-primary" id="newIncidentToggleBtn" style="width:auto; padding:9px 18px;">+ Novo incidente</button>
+      </div>
+
+      <div class="panel" id="newIncidentPanel" style="display:none; margin-bottom:14px;">
+        <div class="panel-head"><h2>Novo incidente</h2></div>
+        <div class="risk-edit-row">
+          <label>Risco relacionado
+            <select id="niRisco" style="min-width:260px;"></select>
+          </label>
+          <label>Data <input type="date" id="niData" /></label>
+        </div>
+        <div class="field"><label>O que aconteceu</label><textarea id="niDescricao" style="height:70px;" placeholder="Descrição do que ocorreu"></textarea></div>
+        <div class="risk-edit-row">
+          <label>Perdas <input type="text" id="niPerdas" placeholder="Ex.: R$ 5.000, 1 dia de operação parada" style="width:260px;" /></label>
+        </div>
+        <div class="field"><label>Causa raiz</label><textarea id="niCausaRaiz" style="height:60px;" placeholder="Por que aconteceu"></textarea></div>
+        <div style="display:flex; gap:8px; margin-top:12px;">
+          <button class="btn-primary" id="niSaveBtn" style="width:auto; padding:9px 18px;">Registrar incidente</button>
+          <button class="btn-ghost" id="niCancelBtn">Cancelar</button>
+        </div>
+        <div class="form-status" id="niStatus"></div>
+      </div>
+
+      <div class="panel-head" style="margin-bottom:12px;">
+        <div class="filter-row" id="incidenteStatusFilter">
+          <button class="filter-chip active" data-ist="todos">Todos</button>
+          <button class="filter-chip" data-ist="Aberto">Aberto</button>
+          <button class="filter-chip" data-ist="Em Investigação">Em Investigação</button>
+          <button class="filter-chip" data-ist="Encerrado">Encerrado</button>
+        </div>
+      </div>
+      <div id="incidentList"></div>
+    </section>
+
+    <!-- NÃO CONFORMIDADES -->
+    <section class="view" id="view-naoconformidades">
+      <div class="topbar">
+        <div>
+          <div class="eyebrow">Desvios de processo e auditoria de campo</div>
+          <h1>Não Conformidades</h1>
+          <div class="sub" id="ncSub">Checklists reprovados, inspeções e desvios identificados em campo</div>
+        </div>
+        <button class="btn-primary" id="newNcToggleBtn" style="width:auto; padding:9px 18px;">+ Nova não conformidade</button>
+      </div>
+
+      <div class="panel" id="newNcPanel" style="display:none; margin-bottom:14px;">
+        <div class="panel-head"><h2>Nova não conformidade</h2></div>
+        <div class="risk-edit-row">
+          <label>Risco relacionado (opcional)
+            <select id="ncRisco" style="min-width:260px;"><option value="">— nenhum —</option></select>
+          </label>
+          <label>Origem <input type="text" id="ncOrigem" placeholder="Ex.: iAuditor, Auditoria interna" style="width:200px;" /></label>
+          <label>Área/local <input type="text" id="ncArea" placeholder="Ex.: Expedição" style="width:160px;" /></label>
+          <label>Data <input type="date" id="ncData" /></label>
+        </div>
+        <div class="field"><label>Descrição do desvio</label><textarea id="ncDescricao" style="height:70px;" placeholder="O que foi encontrado"></textarea></div>
+        <div class="risk-edit-row">
+          <label>Responsável <input type="text" id="ncResponsavel" placeholder="não definido" style="width:160px;" /></label>
+          <label>Prazo <input type="text" id="ncPrazo" placeholder="indefinido" style="width:140px;" /></label>
+        </div>
+        <div style="display:flex; gap:8px; margin-top:12px;">
+          <button class="btn-primary" id="ncSaveBtn" style="width:auto; padding:9px 18px;">Registrar não conformidade</button>
+          <button class="btn-ghost" id="ncCancelBtn">Cancelar</button>
+        </div>
+        <div class="form-status" id="ncStatus"></div>
+      </div>
+
+      <div class="panel-head" style="margin-bottom:12px;">
+        <div class="filter-row" id="ncStatusFilter">
+          <button class="filter-chip active" data-nst="todos">Todas</button>
+          <button class="filter-chip" data-nst="Aberta">Aberta</button>
+          <button class="filter-chip" data-nst="Em Tratamento">Em Tratamento</button>
+          <button class="filter-chip" data-nst="Corrigida">Corrigida</button>
+        </div>
+      </div>
+      <div id="ncList"></div>
+    </section>
   </main>
 </div>
 
@@ -784,7 +890,10 @@ const ACTIONS_SEED=[];
       btn.classList.add('active');
       document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
       document.getElementById('view-'+btn.dataset.view).classList.add('active');
+      if(btn.dataset.view==='dashboard') renderDashboard();
       if(btn.dataset.view==='acompanhamento') renderAcompanhamento();
+      if(btn.dataset.view==='incidentes') renderIncidentes();
+      if(btn.dataset.view==='naoconformidades') renderNaoConformidades();
     });
   });
 
@@ -796,11 +905,13 @@ const ACTIONS_SEED=[];
       const raw = localStorage.getItem(STORE_KEY);
       if(raw) return JSON.parse(raw);
     }catch(e){}
-    return { riskOverrides:{}, actionOverrides:{}, tracking:{}, customRisks:[], customActions:[] };
+    return { riskOverrides:{}, actionOverrides:{}, tracking:{}, customRisks:[], customActions:[], customIncidents:[], customNc:[] };
   }
   let STORE = loadStore();
   if(!STORE.customRisks) STORE.customRisks = [];
   if(!STORE.customActions) STORE.customActions = [];
+  if(!STORE.customIncidents) STORE.customIncidents = [];
+  if(!STORE.customNc) STORE.customNc = [];
   function saveStore(){ localStorage.setItem(STORE_KEY, JSON.stringify(STORE)); }
 
   document.getElementById('resetDataBtn').addEventListener('click', ()=>{
@@ -810,7 +921,7 @@ const ACTIONS_SEED=[];
     }
     if(!confirm('Restaurar todos os dados para o estado original das planilhas? Suas edições e registros de acompanhamento serão perdidos.')) return;
     localStorage.removeItem(STORE_KEY);
-    STORE = { riskOverrides:{}, actionOverrides:{}, tracking:{}, customRisks:[], customActions:[] };
+    STORE = { riskOverrides:{}, actionOverrides:{}, tracking:{}, customRisks:[], customActions:[], customIncidents:[], customNc:[] };
     renderAll();
   });
 
@@ -881,6 +992,68 @@ const ACTIONS_SEED=[];
   function getTracking(actionId){
     const list = CLOUD ? (CLOUD.tracking[actionId] || []) : (STORE.tracking[actionId] || []);
     return list.slice().sort((a,b)=> b.date.localeCompare(a.date));
+  }
+  function getIncidents(){
+    const source = CLOUD ? CLOUD.incidents : STORE.customIncidents;
+    return (source || []).slice().sort((a,b)=> (b.data||'').localeCompare(a.data||''));
+  }
+  function getNonConformities(){
+    const source = CLOUD ? CLOUD.nonConformities : STORE.customNc;
+    return (source || []).slice().sort((a,b)=> (b.data||'').localeCompare(a.data||''));
+  }
+  async function createIncident(data){
+    if(CLOUD){
+      try{
+        const payload = Object.assign({ type:'createIncident', data }, idToken?{idToken}:{});
+        const res = await fetch(cloudUrl, { method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify(payload) });
+        const result = await res.json();
+        if(!result.ok) return result;
+        await cloudFetchAll();
+        return result;
+      }catch(e){ return { ok:false, error:'network' }; }
+    } else {
+      const id = nextLocalId_('I_', STORE.customIncidents.map(x=>x.id));
+      STORE.customIncidents.push(Object.assign({ id, status:'Aberto' }, data));
+      saveStore();
+      return { ok:true, id };
+    }
+  }
+  async function createNonConformity(data){
+    if(CLOUD){
+      try{
+        const payload = Object.assign({ type:'createNc', data }, idToken?{idToken}:{});
+        const res = await fetch(cloudUrl, { method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify(payload) });
+        const result = await res.json();
+        if(!result.ok) return result;
+        await cloudFetchAll();
+        return result;
+      }catch(e){ return { ok:false, error:'network' }; }
+    } else {
+      const id = nextLocalId_('NC_', STORE.customNc.map(x=>x.id));
+      STORE.customNc.push(Object.assign({ id, status:'Aberta', acaoId:null }, data));
+      saveStore();
+      return { ok:true, id };
+    }
+  }
+  function updateIncidentField(id, field, val){
+    if(CLOUD){
+      const x = CLOUD.incidents.find(y=>y.id===id);
+      if(x) x[field] = val;
+      cloudPost({ type:'updateIncident', id, field, value: val });
+    } else {
+      const x = STORE.customIncidents.find(y=>y.id===id);
+      if(x){ x[field] = val; saveStore(); }
+    }
+  }
+  function updateNcField(id, field, val){
+    if(CLOUD){
+      const x = CLOUD.nonConformities.find(y=>y.id===id);
+      if(x) x[field] = val;
+      cloudPost({ type:'updateNc', id, field, value: val });
+    } else {
+      const x = STORE.customNc.find(y=>y.id===id);
+      if(x){ x[field] = val; saveStore(); }
+    }
   }
   function updateRiskField(id, field, val){
     if(CLOUD){
@@ -977,7 +1150,7 @@ const ACTIONS_SEED=[];
         if(authRequired) setLoginStatus('Seu e-mail' + (authedEmail?(' ('+authedEmail+')'):'') + ' não está autorizado a acessar estes dados. Peça para liberarem seu acesso.', true);
         return;
       }
-      CLOUD = { risks: data.risks || [], actions: data.actions || [], tracking: data.tracking || {} };
+      CLOUD = { risks: data.risks || [], actions: data.actions || [], tracking: data.tracking || {}, incidents: data.incidents || [], nonConformities: data.nonConformities || [] };
       cloudStatus = 'online'; lastSyncAt = new Date();
       updateSyncUI();
       if(authRequired) hideGate();
@@ -1189,6 +1362,23 @@ const ACTIONS_SEED=[];
     Object.entries(tipoCounts).forEach(([k,v])=>{
       tbEl.innerHTML += `<div class="status-bar-row"><span>${k}</span><div class="bar-track"><div class="bar-fill" style="width:${v/maxT*100}%; background:var(--gold)"></div></div><span class="tabular">${v}</span></div>`;
     });
+
+    const incidents = getIncidents();
+    const openIncidents = incidents.filter(x=>x.status!=='Encerrado');
+    const incEl = document.getElementById('dashIncidents');
+    if(incEl){
+      incEl.innerHTML = openIncidents.length ? openIncidents.slice(0,5).map(x=>{
+        return `<div class="status-bar-row"><span>${escapeHtml(x.id)} · ${escapeHtml((x.descricao||'').slice(0,40))}${(x.descricao||'').length>40?'…':''}</span><span class="tabular" style="color:${incidentStatusColor(x.status)}">${escapeHtml(x.status)}</span></div>`;
+      }).join('') : '<div class="risk-meta" style="padding:8px 0;">Nenhum incidente em aberto.</div>';
+    }
+    const ncs = getNonConformities();
+    const openNc = ncs.filter(x=>x.status!=='Corrigida');
+    const ncEl = document.getElementById('dashNc');
+    if(ncEl){
+      ncEl.innerHTML = openNc.length ? openNc.slice(0,5).map(x=>{
+        return `<div class="status-bar-row"><span>${escapeHtml(x.id)} · ${escapeHtml((x.descricao||'').slice(0,40))}${(x.descricao||'').length>40?'…':''}</span><span class="tabular" style="color:${ncStatusColor(x.status)}">${escapeHtml(x.status)}</span></div>`;
+      }).join('') : '<div class="risk-meta" style="padding:8px 0;">Nenhuma não conformidade em aberto.</div>';
+    }
   }
 
   /* ---------------- matriz ---------------- */
@@ -1582,6 +1772,219 @@ const ACTIONS_SEED=[];
     }).join('');
   }
 
+  /* ---------------- incidentes ---------------- */
+  const INCIDENT_STATUS_OPTIONS = ['Aberto','Em Investigação','Encerrado'];
+  function incidentStatusColor(s){
+    if(s==='Encerrado') return 'var(--safe)';
+    if(s==='Em Investigação') return 'var(--watch)';
+    return 'var(--critical)';
+  }
+  function populateRiskSelect(selectEl, includeEmpty){
+    const risks = getRisks().slice().sort((a,b)=> a.id.localeCompare(b.id, undefined, {numeric:true}));
+    selectEl.innerHTML = (includeEmpty ? '<option value="">— nenhum —</option>' : '') +
+      risks.map(r=> `<option value="${r.id}">${escapeHtml(r.id+' · '+r.nome)}</option>`).join('');
+  }
+
+  let incidentFilter = 'todos';
+  function renderIncidentes(){
+    const incidents = getIncidents();
+    const risks = getRisks();
+    const riskById = {}; risks.forEach(r=>riskById[r.id]=r);
+    document.getElementById('navCountIncidentes').textContent = incidents.length;
+    document.getElementById('incidentesSub').textContent = incidents.length + ' incidente(s) registrado(s)';
+
+    populateRiskSelect(document.getElementById('niRisco'), false);
+
+    const filtered = incidentFilter==='todos' ? incidents : incidents.filter(x=>x.status===incidentFilter);
+    const box = document.getElementById('incidentList');
+    if(!filtered.length){
+      box.innerHTML = '<div class="empty-state">Nenhum incidente registrado' + (incidentFilter==='todos' ? ' ainda.' : ' com esse status.') + '</div>';
+      return;
+    }
+    box.innerHTML = filtered.map(x=>{
+      const r = riskById[x.riscoId];
+      return `
+      <div class="action-item" data-incident-id="${x.id}">
+        <div class="action-item-top">
+          <div style="flex:1;">
+            <div class="action-item-title">${x.id} · ${escapeHtml(x.descricao||'').slice(0,90)}${(x.descricao||'').length>90?'…':''}</div>
+            <div style="display:flex; gap:6px; margin-top:4px; align-items:center; flex-wrap:wrap;">
+              <span class="eff-pill" style="background:${incidentStatusColor(x.status)}22; color:${incidentStatusColor(x.status)};">${escapeHtml(x.status)}</span>
+              <span class="tag">${fmtDate(x.data)}</span>
+              ${r?`<span class="tag">${escapeHtml(r.id+' · '+r.nome)}</span>`:''}
+            </div>
+          </div>
+        </div>
+        ${x.perdas?`<div class="action-desc"><strong>Perdas:</strong> ${escapeHtml(x.perdas)}</div>`:''}
+        ${x.causaRaiz?`<div class="action-desc"><strong>Causa raiz:</strong> ${escapeHtml(x.causaRaiz)}</div>`:''}
+        <div class="action-meta-row">
+          <div class="field-inline">
+            <span class="fk">Status</span>
+            <select data-incident-field="status" data-incident-id="${x.id}">
+              ${INCIDENT_STATUS_OPTIONS.map(s=>`<option value="${s}" ${x.status===s?'selected':''}>${s}</option>`).join('')}
+            </select>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+
+    box.querySelectorAll('[data-incident-field]').forEach(el=>{
+      el.addEventListener('change', ()=>{
+        updateIncidentField(el.dataset.incidentId, el.dataset.incidentField, el.value);
+        renderIncidentes();
+      });
+    });
+  }
+
+  document.getElementById('newIncidentToggleBtn').addEventListener('click', ()=>{
+    const panel = document.getElementById('newIncidentPanel');
+    panel.style.display = panel.style.display==='none' ? 'block' : 'none';
+  });
+  document.getElementById('niCancelBtn').addEventListener('click', ()=>{
+    document.getElementById('newIncidentPanel').style.display = 'none';
+  });
+  document.getElementById('niSaveBtn').addEventListener('click', async ()=>{
+    const riscoId = document.getElementById('niRisco').value;
+    const dataVal = document.getElementById('niData').value;
+    const descricao = document.getElementById('niDescricao').value.trim();
+    const statusEl = document.getElementById('niStatus');
+    if(!riscoId || !dataVal || !descricao){ statusEl.textContent = 'Preencha risco, data e descrição.'; statusEl.classList.add('err'); return; }
+    const btn = document.getElementById('niSaveBtn');
+    btn.disabled = true;
+    statusEl.textContent = 'Salvando…'; statusEl.classList.remove('err');
+    const result = await createIncident({
+      riscoId, data: dataVal, descricao,
+      perdas: document.getElementById('niPerdas').value.trim() || null,
+      causaRaiz: document.getElementById('niCausaRaiz').value.trim() || null,
+      status: 'Aberto'
+    });
+    btn.disabled = false;
+    if(!result.ok){ statusEl.textContent = 'Erro ao salvar: ' + (result.error||'desconhecido'); statusEl.classList.add('err'); return; }
+    statusEl.textContent = '';
+    ['niData','niDescricao','niPerdas','niCausaRaiz'].forEach(id=> document.getElementById(id).value='');
+    document.getElementById('newIncidentPanel').style.display = 'none';
+    renderIncidentes();
+    renderDashboardIfActive();
+  });
+  document.getElementById('incidenteStatusFilter').addEventListener('click', (e)=>{
+    const chip = e.target.closest('.filter-chip');
+    if(!chip) return;
+    document.querySelectorAll('#incidenteStatusFilter .filter-chip').forEach(c=>c.classList.remove('active'));
+    chip.classList.add('active');
+    incidentFilter = chip.dataset.ist;
+    renderIncidentes();
+  });
+
+  /* ---------------- não conformidades ---------------- */
+  const NC_STATUS_OPTIONS = ['Aberta','Em Tratamento','Corrigida'];
+  function ncStatusColor(s){
+    if(s==='Corrigida') return 'var(--safe)';
+    if(s==='Em Tratamento') return 'var(--watch)';
+    return 'var(--critical)';
+  }
+  let ncFilter = 'todos';
+  function renderNaoConformidades(){
+    const list = getNonConformities();
+    const risks = getRisks();
+    const riskById = {}; risks.forEach(r=>riskById[r.id]=r);
+    document.getElementById('navCountNc').textContent = list.length;
+    document.getElementById('ncSub').textContent = list.length + ' não conformidade(s) registrada(s)';
+
+    populateRiskSelect(document.getElementById('ncRisco'), true);
+
+    const filtered = ncFilter==='todos' ? list : list.filter(x=>x.status===ncFilter);
+    const box = document.getElementById('ncList');
+    if(!filtered.length){
+      box.innerHTML = '<div class="empty-state">Nenhuma não conformidade registrada' + (ncFilter==='todos' ? ' ainda.' : ' com esse status.') + '</div>';
+      return;
+    }
+    box.innerHTML = filtered.map(x=>{
+      const r = riskById[x.riscoId];
+      return `
+      <div class="action-item" data-nc-id="${x.id}">
+        <div class="action-item-top">
+          <div style="flex:1;">
+            <div class="action-item-title">${x.id} · ${escapeHtml(x.descricao||'').slice(0,90)}${(x.descricao||'').length>90?'…':''}</div>
+            <div style="display:flex; gap:6px; margin-top:4px; align-items:center; flex-wrap:wrap;">
+              <span class="eff-pill" style="background:${ncStatusColor(x.status)}22; color:${ncStatusColor(x.status)};">${escapeHtml(x.status)}</span>
+              ${x.origem?`<span class="tag">${escapeHtml(x.origem)}</span>`:''}
+              ${x.area?`<span class="tag">${escapeHtml(x.area)}</span>`:''}
+              <span class="tag">${fmtDate(x.data)}</span>
+              ${r?`<span class="tag">${escapeHtml(r.id+' · '+r.nome)}</span>`:''}
+              ${x.acaoId?`<span class="tag">ação: ${escapeHtml(x.acaoId)}</span>`:''}
+            </div>
+          </div>
+        </div>
+        <div class="action-meta-row">
+          <div class="field-inline">
+            <span class="fk">Status</span>
+            <select data-nc-field="status" data-nc-id="${x.id}">
+              ${NC_STATUS_OPTIONS.map(s=>`<option value="${s}" ${x.status===s?'selected':''}>${s}</option>`).join('')}
+            </select>
+          </div>
+          <div class="field-inline">
+            <span class="fk">Responsável</span>
+            <input type="text" data-nc-field="responsavel" data-nc-id="${x.id}" value="${escapeHtml(x.responsavel||'')}" placeholder="não definido" style="width:130px;" />
+          </div>
+          <div class="field-inline">
+            <span class="fk">Prazo</span>
+            <input type="text" data-nc-field="prazo" data-nc-id="${x.id}" value="${escapeHtml(x.prazo||'')}" placeholder="indefinido" style="width:110px;" />
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+
+    box.querySelectorAll('[data-nc-field]').forEach(el=>{
+      el.addEventListener('change', ()=>{
+        updateNcField(el.dataset.ncId, el.dataset.ncField, el.value);
+        renderNaoConformidades();
+      });
+    });
+  }
+
+  document.getElementById('newNcToggleBtn').addEventListener('click', ()=>{
+    const panel = document.getElementById('newNcPanel');
+    panel.style.display = panel.style.display==='none' ? 'block' : 'none';
+  });
+  document.getElementById('ncCancelBtn').addEventListener('click', ()=>{
+    document.getElementById('newNcPanel').style.display = 'none';
+  });
+  document.getElementById('ncSaveBtn').addEventListener('click', async ()=>{
+    const descricao = document.getElementById('ncDescricao').value.trim();
+    const dataVal = document.getElementById('ncData').value;
+    const statusEl = document.getElementById('ncStatus');
+    if(!descricao || !dataVal){ statusEl.textContent = 'Preencha ao menos a data e a descrição.'; statusEl.classList.add('err'); return; }
+    const btn = document.getElementById('ncSaveBtn');
+    btn.disabled = true;
+    statusEl.textContent = 'Salvando…'; statusEl.classList.remove('err');
+    const result = await createNonConformity({
+      riscoId: document.getElementById('ncRisco').value || null,
+      origem: document.getElementById('ncOrigem').value.trim() || null,
+      area: document.getElementById('ncArea').value.trim() || null,
+      data: dataVal,
+      descricao,
+      status: 'Aberta',
+      responsavel: document.getElementById('ncResponsavel').value.trim() || null,
+      prazo: document.getElementById('ncPrazo').value.trim() || null
+    });
+    btn.disabled = false;
+    if(!result.ok){ statusEl.textContent = 'Erro ao salvar: ' + (result.error||'desconhecido'); statusEl.classList.add('err'); return; }
+    statusEl.textContent = '';
+    ['ncOrigem','ncArea','ncData','ncDescricao','ncResponsavel','ncPrazo'].forEach(id=> document.getElementById(id).value='');
+    document.getElementById('ncRisco').value = '';
+    document.getElementById('newNcPanel').style.display = 'none';
+    renderNaoConformidades();
+    renderDashboardIfActive();
+  });
+  document.getElementById('ncStatusFilter').addEventListener('click', (e)=>{
+    const chip = e.target.closest('.filter-chip');
+    if(!chip) return;
+    document.querySelectorAll('#ncStatusFilter .filter-chip').forEach(c=>c.classList.remove('active'));
+    chip.classList.add('active');
+    ncFilter = chip.dataset.nst;
+    renderNaoConformidades();
+  });
+
   function renderDashboardIfActive(){ if(document.getElementById('view-dashboard').classList.contains('active')) renderDashboard(); }
   function renderMatrizIfActive(){ if(document.getElementById('view-matriz').classList.contains('active')) renderMatriz(); }
 
@@ -1642,6 +2045,8 @@ const ACTIONS_SEED=[];
     renderMatriz();
     renderRiscos();
     renderPlanos();
+    renderIncidentes();
+    renderNaoConformidades();
     if(document.getElementById('view-acompanhamento').classList.contains('active')) renderAcompanhamento();
   }
   renderAll();
