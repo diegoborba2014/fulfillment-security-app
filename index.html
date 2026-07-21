@@ -484,6 +484,10 @@ tbody tr:hover{background:var(--surface-2);}
 .new-action-form{ border:1px dashed var(--line); border-radius:8px; padding:12px; margin:10px 0; background:var(--surface); }
 .form-status{ font-size:12px; margin-top:8px; color:var(--safe); min-height:16px; }
 .form-status.err{ color:var(--critical); }
+
+.cadastro-item{ display:flex; align-items:center; justify-content:space-between; padding:9px 12px; border:1px solid var(--line); border-radius:7px; margin-bottom:6px; background:var(--surface); font-size:13px; }
+.cadastro-item .del-btn{ background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:15px; line-height:1; padding:2px 6px; }
+.cadastro-item .del-btn:hover{ color:var(--critical); }
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <div class="login-gate" id="loginGate">
@@ -550,7 +554,18 @@ tbody tr:hover{background:var(--surface-2);}
         <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/><path d="M8 5v3.5M8 11h.01" stroke="currentColor" stroke-width="1.3"/></svg>
         Não Conformidades <span class="count" id="navCountNc">0</span>
       </button>
+      <div class="navlabel">Configuração</div>
+      <button class="navbtn" data-view="cadastros">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="9" y="2" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="2" y="9" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="9" y="9" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.2"/></svg>
+        Cadastros
+      </button>
     </nav>
+
+    <datalist id="dl-categoria"></datalist>
+    <datalist id="dl-processo"></datalist>
+    <datalist id="dl-area"></datalist>
+    <datalist id="dl-origem"></datalist>
+    <datalist id="dl-responsavel"></datalist>
 
     <div class="sidebar-foot">
       <div class="select-chip"><span class="k">Full</span> FBS-RS3</div>
@@ -705,9 +720,9 @@ tbody tr:hover{background:var(--surface-2);}
         <div class="field"><label>Nome do risco</label><input type="text" id="nrNome" placeholder="Ex.: Falha no controle de acesso da doca 2" /></div>
         <div class="field"><label>Descrição</label><textarea id="nrDescricao" placeholder="Causas, vetores e consequências do risco" style="height:90px;"></textarea></div>
         <div class="risk-edit-row">
-          <label>Categoria <input type="text" id="nrCategoria" placeholder="Segurança" style="width:140px;" /></label>
-          <label>Processo <input type="text" id="nrProcesso" placeholder="Controle de Acesso" style="width:160px;" /></label>
-          <label>Dono <input type="text" id="nrDono" placeholder="não definido" style="width:120px;" /></label>
+          <label>Categoria <input type="text" id="nrCategoria" list="dl-categoria" placeholder="Segurança" style="width:140px;" /></label>
+          <label>Processo <input type="text" id="nrProcesso" list="dl-processo" placeholder="Controle de Acesso" style="width:160px;" /></label>
+          <label>Dono <input type="text" id="nrDono" list="dl-responsavel" placeholder="não definido" style="width:120px;" /></label>
           <label>Probabilidade
             <select id="nrP"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>
           </label>
@@ -839,13 +854,13 @@ tbody tr:hover{background:var(--surface-2);}
           <label>Risco relacionado (opcional)
             <select id="ncRisco" style="min-width:260px;"><option value="">— nenhum —</option></select>
           </label>
-          <label>Origem <input type="text" id="ncOrigem" placeholder="Ex.: iAuditor, Auditoria interna" style="width:200px;" /></label>
-          <label>Área/local <input type="text" id="ncArea" placeholder="Ex.: Expedição" style="width:160px;" /></label>
+          <label>Origem <input type="text" id="ncOrigem" list="dl-origem" placeholder="Ex.: iAuditor, Auditoria interna" style="width:200px;" /></label>
+          <label>Área/local <input type="text" id="ncArea" list="dl-area" placeholder="Ex.: Expedição" style="width:160px;" /></label>
           <label>Data <input type="date" id="ncData" /></label>
         </div>
         <div class="field"><label>Descrição do desvio</label><textarea id="ncDescricao" style="height:70px;" placeholder="O que foi encontrado"></textarea></div>
         <div class="risk-edit-row">
-          <label>Responsável <input type="text" id="ncResponsavel" placeholder="não definido" style="width:160px;" /></label>
+          <label>Responsável <input type="text" id="ncResponsavel" list="dl-responsavel" placeholder="não definido" style="width:160px;" /></label>
           <label>Prazo <input type="text" id="ncPrazo" placeholder="indefinido" style="width:140px;" /></label>
         </div>
         <div style="display:flex; gap:8px; margin-top:12px;">
@@ -864,6 +879,33 @@ tbody tr:hover{background:var(--surface-2);}
         </div>
       </div>
       <div id="ncList"></div>
+    </section>
+
+    <!-- CADASTROS -->
+    <section class="view" id="view-cadastros">
+      <div class="topbar">
+        <div>
+          <div class="eyebrow">Configuração</div>
+          <h1>Cadastros</h1>
+          <div class="sub">Listas de valores usados como sugestão (autocomplete) nos formulários de risco, ação, incidente e não conformidade</div>
+        </div>
+      </div>
+      <div class="filter-row" id="cadastroTabs" style="margin-bottom:14px;">
+        <button class="filter-chip active" data-lk="categoria">Categorias</button>
+        <button class="filter-chip" data-lk="processo">Processos</button>
+        <button class="filter-chip" data-lk="area">Áreas</button>
+        <button class="filter-chip" data-lk="origem">Origens (RNC)</button>
+        <button class="filter-chip" data-lk="responsavel">Responsáveis</button>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h2 id="cadastroTitle">Categorias</h2></div>
+        <div style="display:flex; gap:8px; margin-bottom:14px;">
+          <input class="filter-search" id="cadastroNewValue" style="max-width:320px;" placeholder="Novo valor…" />
+          <button class="btn-sm" id="cadastroAddBtn">Adicionar</button>
+        </div>
+        <div id="cadastroList"></div>
+        <div class="form-status" id="cadastroStatus"></div>
+      </div>
     </section>
   </main>
 </div>
@@ -894,6 +936,7 @@ const ACTIONS_SEED=[];
       if(btn.dataset.view==='acompanhamento') renderAcompanhamento();
       if(btn.dataset.view==='incidentes') renderIncidentes();
       if(btn.dataset.view==='naoconformidades') renderNaoConformidades();
+      if(btn.dataset.view==='cadastros') renderCadastros();
     });
   });
 
@@ -905,13 +948,14 @@ const ACTIONS_SEED=[];
       const raw = localStorage.getItem(STORE_KEY);
       if(raw) return JSON.parse(raw);
     }catch(e){}
-    return { riskOverrides:{}, actionOverrides:{}, tracking:{}, customRisks:[], customActions:[], customIncidents:[], customNc:[] };
+    return { riskOverrides:{}, actionOverrides:{}, tracking:{}, customRisks:[], customActions:[], customIncidents:[], customNc:[], customLookups:{} };
   }
   let STORE = loadStore();
   if(!STORE.customRisks) STORE.customRisks = [];
   if(!STORE.customActions) STORE.customActions = [];
   if(!STORE.customIncidents) STORE.customIncidents = [];
   if(!STORE.customNc) STORE.customNc = [];
+  if(!STORE.customLookups) STORE.customLookups = {};
   function saveStore(){ localStorage.setItem(STORE_KEY, JSON.stringify(STORE)); }
 
   document.getElementById('resetDataBtn').addEventListener('click', ()=>{
@@ -921,7 +965,7 @@ const ACTIONS_SEED=[];
     }
     if(!confirm('Restaurar todos os dados para o estado original das planilhas? Suas edições e registros de acompanhamento serão perdidos.')) return;
     localStorage.removeItem(STORE_KEY);
-    STORE = { riskOverrides:{}, actionOverrides:{}, tracking:{}, customRisks:[], customActions:[], customIncidents:[], customNc:[] };
+    STORE = { riskOverrides:{}, actionOverrides:{}, tracking:{}, customRisks:[], customActions:[], customIncidents:[], customNc:[], customLookups:{} };
     renderAll();
   });
 
@@ -1055,6 +1099,41 @@ const ACTIONS_SEED=[];
       if(x){ x[field] = val; saveStore(); }
     }
   }
+
+  const LOOKUP_TYPES = ['categoria','processo','area','origem','responsavel'];
+  function getLookups(tipo){
+    const source = CLOUD ? (CLOUD.lookups && CLOUD.lookups[tipo]) : (STORE.customLookups && STORE.customLookups[tipo]);
+    return (source || []).slice().sort((a,b)=> a.valor.localeCompare(b.valor, 'pt-BR'));
+  }
+  async function createLookupValue(tipo, valor){
+    if(CLOUD){
+      try{
+        const payload = Object.assign({ type:'createLookup', data:{ tipo, valor } }, idToken?{idToken}:{});
+        const res = await fetch(cloudUrl, { method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify(payload) });
+        const result = await res.json();
+        if(!result.ok) return result;
+        await cloudFetchAll();
+        return result;
+      }catch(e){ return { ok:false, error:'network' }; }
+    } else {
+      const allIds = LOOKUP_TYPES.reduce((acc,t)=> acc.concat((STORE.customLookups[t]||[]).map(x=>x.id)), []);
+      const id = nextLocalId_('L_', allIds);
+      if(!STORE.customLookups[tipo]) STORE.customLookups[tipo] = [];
+      STORE.customLookups[tipo].push({ id, valor });
+      saveStore();
+      return { ok:true, id };
+    }
+  }
+  async function deleteLookupValue(tipo, id){
+    if(CLOUD){
+      cloudPost({ type:'deleteLookup', id });
+      if(CLOUD.lookups && CLOUD.lookups[tipo]) CLOUD.lookups[tipo] = CLOUD.lookups[tipo].filter(x=>x.id!==id);
+    } else {
+      if(STORE.customLookups[tipo]) STORE.customLookups[tipo] = STORE.customLookups[tipo].filter(x=>x.id!==id);
+      saveStore();
+    }
+  }
+
   function updateRiskField(id, field, val){
     if(CLOUD){
       const r = CLOUD.risks.find(x=>x.id===id);
@@ -1150,7 +1229,7 @@ const ACTIONS_SEED=[];
         if(authRequired) setLoginStatus('Seu e-mail' + (authedEmail?(' ('+authedEmail+')'):'') + ' não está autorizado a acessar estes dados. Peça para liberarem seu acesso.', true);
         return;
       }
-      CLOUD = { risks: data.risks || [], actions: data.actions || [], tracking: data.tracking || {}, incidents: data.incidents || [], nonConformities: data.nonConformities || [] };
+      CLOUD = { risks: data.risks || [], actions: data.actions || [], tracking: data.tracking || {}, incidents: data.incidents || [], nonConformities: data.nonConformities || [], lookups: data.lookups || {} };
       cloudStatus = 'online'; lastSyncAt = new Date();
       updateSyncUI();
       if(authRequired) hideGate();
@@ -1418,7 +1497,7 @@ const ACTIONS_SEED=[];
         </div>
         <div class="field-inline">
           <span class="fk">Responsável</span>
-          <input type="text" data-field="responsavel" data-id="${a.id}" value="${escapeHtml(a.responsavel||'')}" placeholder="não definido" style="width:140px;" />
+          <input type="text" data-field="responsavel" data-id="${a.id}" list="dl-responsavel" value="${escapeHtml(a.responsavel||'')}" placeholder="não definido" style="width:140px;" />
         </div>
         <div class="field-inline">
           <span class="fk">Prazo</span>
@@ -1484,7 +1563,7 @@ const ACTIONS_SEED=[];
             </select>
           </label>
           <label>Dono do risco
-            <input type="text" data-field="dono" data-risk-id="${r.id}" value="${escapeHtml(r.dono||'')}" placeholder="não definido" style="width:140px;" />
+            <input type="text" data-field="dono" data-risk-id="${r.id}" list="dl-responsavel" value="${escapeHtml(r.dono||'')}" placeholder="não definido" style="width:140px;" />
           </label>
           <span style="color:var(--text-muted);">Nível: <strong style="color:${sevColor(r.nivel)}">${r.nivel!=null?r.nivel:'sem avaliação'}</strong></span>
         </div>
@@ -1502,7 +1581,7 @@ const ACTIONS_SEED=[];
             <label>Status
               <select data-na-field="status">${STATUS_OPTIONS.map(s=>`<option value="${s}">${s}</option>`).join('')}</select>
             </label>
-            <label>Responsável <input type="text" data-na-field="responsavel" placeholder="não definido" style="width:120px;" /></label>
+            <label>Responsável <input type="text" data-na-field="responsavel" list="dl-responsavel" placeholder="não definido" style="width:120px;" /></label>
             <label>Prazo <input type="text" data-na-field="prazo" placeholder="indefinido" style="width:120px;" /></label>
           </div>
           <div style="display:flex; gap:8px; margin-top:10px;">
@@ -1985,6 +2064,67 @@ const ACTIONS_SEED=[];
     renderNaoConformidades();
   });
 
+  /* ---------------- cadastros (listas de valores) ---------------- */
+  const LOOKUP_LABELS = { categoria:'Categorias', processo:'Processos', area:'Áreas', origem:'Origens (RNC)', responsavel:'Responsáveis' };
+  let cadastroTipo = 'categoria';
+
+  function refreshDatalists(){
+    LOOKUP_TYPES.forEach(tipo=>{
+      const dl = document.getElementById('dl-'+tipo);
+      if(!dl) return;
+      dl.innerHTML = getLookups(tipo).map(x=> `<option value="${escapeHtml(x.valor)}"></option>`).join('');
+    });
+  }
+
+  function renderCadastros(){
+    document.getElementById('cadastroTitle').textContent = LOOKUP_LABELS[cadastroTipo];
+    document.getElementById('cadastroNewValue').placeholder = 'Novo valor em ' + LOOKUP_LABELS[cadastroTipo].toLowerCase() + '…';
+    const items = getLookups(cadastroTipo);
+    const box = document.getElementById('cadastroList');
+    box.innerHTML = items.length ? items.map(x=> `
+      <div class="cadastro-item">
+        <span>${escapeHtml(x.valor)}</span>
+        <button class="del-btn" data-del-lookup="${x.id}" title="Remover">✕</button>
+      </div>`).join('') : '<div class="risk-meta" style="padding:8px 0;">Nenhum valor cadastrado ainda.</div>';
+
+    box.querySelectorAll('[data-del-lookup]').forEach(btn=>{
+      btn.addEventListener('click', async ()=>{
+        if(!confirm('Remover este valor da lista? Isso não altera registros que já usam esse texto, só some da sugestão.')) return;
+        await deleteLookupValue(cadastroTipo, btn.dataset.delLookup);
+        renderCadastros();
+        refreshDatalists();
+      });
+    });
+  }
+
+  document.getElementById('cadastroTabs').addEventListener('click', (e)=>{
+    const chip = e.target.closest('.filter-chip');
+    if(!chip) return;
+    document.querySelectorAll('#cadastroTabs .filter-chip').forEach(c=>c.classList.remove('active'));
+    chip.classList.add('active');
+    cadastroTipo = chip.dataset.lk;
+    document.getElementById('cadastroStatus').textContent = '';
+    renderCadastros();
+  });
+  document.getElementById('cadastroAddBtn').addEventListener('click', async ()=>{
+    const input = document.getElementById('cadastroNewValue');
+    const valor = input.value.trim();
+    const statusEl = document.getElementById('cadastroStatus');
+    if(!valor){ statusEl.textContent = 'Digite um valor.'; statusEl.classList.add('err'); return; }
+    const existing = getLookups(cadastroTipo).some(x=> x.valor.toLowerCase()===valor.toLowerCase());
+    if(existing){ statusEl.textContent = 'Esse valor já está cadastrado.'; statusEl.classList.add('err'); return; }
+    statusEl.textContent = 'Salvando…'; statusEl.classList.remove('err');
+    const result = await createLookupValue(cadastroTipo, valor);
+    if(!result.ok){ statusEl.textContent = 'Erro ao salvar: ' + (result.error||'desconhecido'); statusEl.classList.add('err'); return; }
+    statusEl.textContent = '';
+    input.value = '';
+    renderCadastros();
+    refreshDatalists();
+  });
+  document.getElementById('cadastroNewValue').addEventListener('keydown', (e)=>{
+    if(e.key==='Enter'){ e.preventDefault(); document.getElementById('cadastroAddBtn').click(); }
+  });
+
   function renderDashboardIfActive(){ if(document.getElementById('view-dashboard').classList.contains('active')) renderDashboard(); }
   function renderMatrizIfActive(){ if(document.getElementById('view-matriz').classList.contains('active')) renderMatriz(); }
 
@@ -2041,6 +2181,7 @@ const ACTIONS_SEED=[];
   });
 
   function renderAll(){
+    refreshDatalists();
     renderDashboard();
     renderMatriz();
     renderRiscos();
@@ -2048,6 +2189,7 @@ const ACTIONS_SEED=[];
     renderIncidentes();
     renderNaoConformidades();
     if(document.getElementById('view-acompanhamento').classList.contains('active')) renderAcompanhamento();
+    if(document.getElementById('view-cadastros').classList.contains('active')) renderCadastros();
   }
   renderAll();
 
