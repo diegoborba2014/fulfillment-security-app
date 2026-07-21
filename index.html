@@ -2,6 +2,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="robots" content="noindex, nofollow" />
 <script src="https://accounts.google.com/gsi/client" async defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 @font-face{
   font-family:'Oswald Var';
@@ -20,53 +23,53 @@
 }
 
 :root{
-  --ink:#0E1512;
-  --surface:#16231D;
-  --surface-2:#1D2C24;
-  --surface-3:#243329;
-  --line:#2B3A31;
-  --ember:#E8770D;
-  --ember-dim:#B65D0A;
-  --gold:#C9962E;
-  --text:#F2EDE3;
-  --text-muted:#9FAEA5;
-  --safe:#4FA675;
-  --watch:#E8C34B;
-  --critical:#D6483F;
-  --shadow: 0 12px 32px -12px rgba(0,0,0,.55);
+  --ink:#F6F6F6;
+  --surface:#FFFFFF;
+  --surface-2:#FFF3EF;
+  --surface-3:#FFE4D9;
+  --line:#EDEDED;
+  --ember:#EE4D2D;
+  --ember-dim:#D14324;
+  --gold:#FA8055;
+  --text:#222222;
+  --text-muted:#767676;
+  --safe:#1DA85A;
+  --watch:#F2A93B;
+  --critical:#D0021B;
+  --shadow: 0 8px 24px -10px rgba(34,34,34,.18);
   --radius: 10px;
-  --font-display:'Oswald Var', 'Arial Narrow', sans-serif;
-  --font-body:'Public Sans Var', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display:'Nunito', 'Segoe UI', sans-serif;
+  --font-body:'Nunito', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-mono:'JetBrains Mono Var', ui-monospace, 'Consolas', monospace;
 }
 
-@media (prefers-color-scheme: light){
+@media (prefers-color-scheme: dark){
   :root{
-    --ink:#F3EEE3;
-    --surface:#FFFFFF;
-    --surface-2:#FAF5EA;
-    --surface-3:#F2EAD9;
-    --line:#DDD3BF;
-    --ember:#C15F09;
-    --ember-dim:#A34E07;
-    --gold:#96701C;
-    --text:#201A12;
-    --text-muted:#6B6151;
-    --safe:#2F8F5B;
-    --watch:#A9790E;
-    --critical:#B93A31;
-    --shadow: 0 12px 28px -14px rgba(60,40,10,.25);
+    --ink:#1A1A1A;
+    --surface:#242424;
+    --surface-2:#2C2C2C;
+    --surface-3:#383028;
+    --line:#3A3A3A;
+    --ember:#FF6A3D;
+    --ember-dim:#EE4D2D;
+    --gold:#FF9466;
+    --text:#F5F2EF;
+    --text-muted:#A8A8A8;
+    --safe:#3DBD6E;
+    --watch:#F2B84B;
+    --critical:#FF5B4E;
+    --shadow: 0 12px 32px -12px rgba(0,0,0,.6);
   }
 }
 :root[data-theme="dark"]{
-  --ink:#0E1512; --surface:#16231D; --surface-2:#1D2C24; --surface-3:#243329; --line:#2B3A31;
-  --ember:#E8770D; --ember-dim:#B65D0A; --gold:#C9962E; --text:#F2EDE3; --text-muted:#9FAEA5;
-  --safe:#4FA675; --watch:#E8C34B; --critical:#D6483F; --shadow: 0 12px 32px -12px rgba(0,0,0,.55);
+  --ink:#1A1A1A; --surface:#242424; --surface-2:#2C2C2C; --surface-3:#383028; --line:#3A3A3A;
+  --ember:#FF6A3D; --ember-dim:#EE4D2D; --gold:#FF9466; --text:#F5F2EF; --text-muted:#A8A8A8;
+  --safe:#3DBD6E; --watch:#F2B84B; --critical:#FF5B4E; --shadow: 0 12px 32px -12px rgba(0,0,0,.6);
 }
 :root[data-theme="light"]{
-  --ink:#F3EEE3; --surface:#FFFFFF; --surface-2:#FAF5EA; --surface-3:#F2EAD9; --line:#DDD3BF;
-  --ember:#C15F09; --ember-dim:#A34E07; --gold:#96701C; --text:#201A12; --text-muted:#6B6151;
-  --safe:#2F8F5B; --watch:#A9790E; --critical:#B93A31; --shadow: 0 12px 28px -14px rgba(60,40,10,.25);
+  --ink:#F6F6F6; --surface:#FFFFFF; --surface-2:#FFF3EF; --surface-3:#FFE4D9; --line:#EDEDED;
+  --ember:#EE4D2D; --ember-dim:#D14324; --gold:#FA8055; --text:#222222; --text-muted:#767676;
+  --safe:#1DA85A; --watch:#F2A93B; --critical:#D0021B; --shadow: 0 8px 24px -10px rgba(34,34,34,.18);
 }
 
 *{box-sizing:border-box;}
@@ -333,8 +336,8 @@ main{padding:22px 30px 60px; max-width:1360px;}
   color:var(--text-muted); font-size:12px; cursor:pointer;
 }
 .btn-primary{
-  width:100%; background:var(--ember); color:#1a0f04; border:none; padding:11px; border-radius:9px;
-  font-family:var(--font-display); font-weight:600; letter-spacing:.03em; text-transform:uppercase; font-size:12.5px;
+  width:100%; background:var(--ember); color:#fff; border:none; padding:11px; border-radius:9px;
+  font-family:var(--font-display); font-weight:700; letter-spacing:.01em; text-transform:none; font-size:13.5px;
   cursor:pointer; transition:filter .15s;
 }
 .btn-primary:hover{filter:brightness(1.08);}
@@ -392,7 +395,13 @@ tbody tr:hover{background:var(--surface-2);}
 
 @media (max-width: 980px){
   .app{grid-template-columns:1fr;}
-  .sidebar{display:none;}
+  .nav-toggle{display:flex;}
+  .sidebar{
+    position:fixed; inset:0 auto 0 0; width:270px; max-width:82vw; z-index:400;
+    display:flex; transform:translateX(-100%); transition:transform .25s ease; box-shadow:var(--shadow); overflow-y:auto;
+  }
+  .sidebar.open{ transform:translateX(0); }
+  main{ padding-top:64px; }
   .kpi-row{grid-template-columns:repeat(2,1fr);}
   .grid-2{grid-template-columns:1fr;}
   .kanban{grid-template-columns:1fr;}
@@ -449,7 +458,7 @@ tbody tr:hover{background:var(--surface-2);}
 .track-add{ display:flex; gap:8px; margin-top:10px; flex-wrap:wrap; }
 .track-add select, .track-add input{ background:var(--surface-3); border:1px solid var(--line); color:var(--text); border-radius:6px; padding:6px 8px; font-size:12px; }
 .track-add input[type="text"]{ flex:1; min-width:160px; }
-.btn-sm{ background:var(--ember); color:#0E1512; border:none; border-radius:6px; padding:6px 12px; font-size:12px; font-weight:600; cursor:pointer; }
+.btn-sm{ background:var(--ember); color:#fff; border:none; border-radius:6px; padding:6px 12px; font-size:12px; font-weight:700; cursor:pointer; }
 .btn-sm:hover{ background:var(--gold); }
 
 .eff-pill{ font-size:10px; padding:1px 7px; border-radius:99px; font-weight:600; }
@@ -488,17 +497,125 @@ tbody tr:hover{background:var(--surface-2);}
 .cadastro-item{ display:flex; align-items:center; justify-content:space-between; padding:9px 12px; border:1px solid var(--line); border-radius:7px; margin-bottom:6px; background:var(--surface); font-size:13px; }
 .cadastro-item .del-btn{ background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:15px; line-height:1; padding:2px 6px; }
 .cadastro-item .del-btn:hover{ color:var(--critical); }
+
+.del-icon-btn{ background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:15px; line-height:1; padding:4px 8px; border-radius:6px; flex:0 0 auto; }
+.del-icon-btn:hover{ color:var(--critical); background:color-mix(in srgb, var(--critical) 12%, transparent); }
+.del-icon-btn:focus-visible{ outline:2px solid var(--ember); outline-offset:1px; }
+.risk-card-head:focus-visible{ outline:2px solid var(--ember); outline-offset:-2px; }
+
+.toast-stack{ position:fixed; top:16px; right:16px; z-index:2000; display:flex; flex-direction:column; gap:8px; max-width:320px; }
+.toast{ background:var(--surface-2); border:1px solid var(--line); border-left:3px solid var(--critical); color:var(--text); border-radius:8px; padding:11px 14px; font-size:12.5px; box-shadow:var(--shadow); animation:toastIn .2s ease; }
+.toast.ok{ border-left-color:var(--safe); }
+@keyframes toastIn{from{opacity:0; transform:translateY(-6px);} to{opacity:1; transform:translateY(0);}}
+
+.nav-toggle{ display:none; position:fixed; top:14px; left:14px; z-index:500; width:40px; height:40px; align-items:center; justify-content:center; border-radius:8px; background:var(--surface-2); border:1px solid var(--line); color:var(--text); font-size:18px; cursor:pointer; }
+.nav-toggle:focus-visible{ outline:2px solid var(--ember); outline-offset:1px; }
+.nav-backdrop{ display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:399; }
+.nav-backdrop.open{ display:block; }
+
+/* ===== screen polish · riscos / planos / acompanhamento ===== */
+.topbar h1{ font-weight:800; letter-spacing:-.012em; }
+.topbar .eyebrow{ color:var(--ember); }
+.section-note{ border-left:2px solid var(--ember); padding-left:13px; }
+
+/* filters as a segmented control */
+.filter-chip{ border-radius:8px; font-weight:600; }
+.filter-chip:hover:not(.active){ color:var(--ember); border-color:color-mix(in srgb, var(--ember) 40%, var(--line)); }
+.filter-chip.active{ background:var(--ember); border-color:var(--ember); color:#fff; }
+
+/* riscos cards */
+.risk-card{ background:var(--surface); border-radius:12px; box-shadow:var(--shadow); transition:box-shadow .15s, border-color .15s; }
+.risk-card:hover{ border-color:color-mix(in srgb, var(--ember) 40%, var(--line)); }
+.risk-card.open{ border-color:var(--ember); }
+.risk-card-head{ padding:16px 18px; gap:14px; }
+.risk-card-head:hover{ background:color-mix(in srgb, var(--ember) 5%, var(--surface)); }
+.risk-card.open .risk-card-head{ background:color-mix(in srgb, var(--ember) 6%, var(--surface)); }
+.risk-card-head .sev-chip{ width:44px; height:44px; border-radius:10px; font-size:16px; color:#fff; }
+.risk-card-title{ font-size:15.5px; font-weight:700; letter-spacing:-.005em; }
+.risk-card-sub{ gap:0; margin-top:5px; }
+.risk-card-sub span{ position:relative; padding-right:15px; }
+.risk-card-sub span:not(:last-child)::after{ content:"·"; position:absolute; right:5px; opacity:.5; }
+.risk-card-body{ padding:16px 18px 18px; background:color-mix(in srgb, var(--ember) 3%, var(--surface)); }
+.risk-card-body .risk-edit-row{ background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:12px 14px; gap:16px 22px; }
+
+/* planos kanban */
+.kcol{ background:var(--surface); border-radius:12px; padding:16px; }
+.kcol h3{ font-size:12px; text-transform:uppercase; letter-spacing:.07em; font-weight:800; padding-bottom:10px; border-bottom:2px solid var(--ember); margin-bottom:14px; }
+.kcol h3 .count{ background:color-mix(in srgb, var(--ember) 12%, var(--surface-2)); color:var(--ember); }
+.kcard{ background:var(--surface-2); border-left:3px solid var(--ember); border-radius:8px; padding:12px 13px; transition:border-color .15s; }
+.kcard:hover{ border-color:color-mix(in srgb, var(--ember) 40%, var(--line)); border-left-color:var(--ember); }
+.kcard-title{ font-weight:600; }
+.kcard-meta .due{ font-family:var(--font-mono); font-size:10.5px; color:var(--text-muted); }
+
+/* acompanhamento */
+.status-bar-row{ grid-template-columns:130px 1fr auto; font-size:12.5px; }
+.bar-track{ height:10px; }
+.occ-item{ padding:14px 4px; gap:14px; }
+.occ-title{ font-weight:700; }
+.occ-thumb{ width:12px; height:12px; border-radius:50%; border:3px solid currentColor; background:var(--surface); font-size:0; align-self:flex-start; margin-top:4px; box-shadow:0 0 0 4px color-mix(in srgb, currentColor 14%, transparent); }
+
+/* planos · view toggle + table */
+.planos-toolbar{ display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:12px; }
+.seg-toggle{ display:inline-flex; border:1px solid var(--line); border-radius:9px; overflow:hidden; background:var(--surface-2); flex:0 0 auto; }
+.seg-btn{ border:none; background:transparent; color:var(--text-muted); font-family:var(--font-body); font-weight:600; font-size:12.5px; padding:7px 16px; cursor:pointer; transition:.15s; }
+.seg-btn:not(.active):hover{ color:var(--ember); }
+.seg-btn.active{ background:var(--ember); color:#fff; }
+.planos-summary{ display:flex; gap:22px; flex-wrap:wrap; font-size:12.5px; color:var(--text-muted); margin-bottom:14px; padding-bottom:12px; border-bottom:2px solid var(--line); }
+.planos-summary strong{ color:var(--text); font-family:var(--font-mono); font-size:14px; margin-right:3px; }
+.planos-summary .ps-warn strong{ color:var(--critical); }
+.planos-summary .ps-ok strong{ color:var(--safe); }
+.ptable-wrap{ border:1px solid var(--line); border-radius:12px; overflow-x:auto; background:var(--surface); box-shadow:var(--shadow); }
+.ptable{ width:100%; min-width:660px; border-collapse:collapse; font-size:12.5px; }
+.ptable thead th{ text-align:left; font-family:var(--font-display); font-weight:700; text-transform:uppercase; font-size:10.5px; letter-spacing:.07em; color:var(--text-muted); padding:12px 14px; border-bottom:2px solid var(--line); background:var(--surface-2); white-space:nowrap; }
+.ptable th.sortable{ cursor:pointer; user-select:none; }
+.ptable th.sortable:hover{ color:var(--ember); }
+.ptable tbody td{ padding:12px 14px; border-bottom:1px solid var(--line); vertical-align:middle; }
+.ptable .ptr{ cursor:pointer; transition:background .12s; }
+.ptable .ptr:hover{ background:color-mix(in srgb, var(--ember) 5%, var(--surface)); }
+.ptable .ptr.open{ background:color-mix(in srgb, var(--ember) 7%, var(--surface)); }
+.ptable .ptr.open > td{ border-bottom-color:transparent; }
+.ptable .ptr:focus-visible{ outline:2px solid var(--ember); outline-offset:-2px; }
+.pt-name{ font-weight:600; min-width:200px; }
+.pt-caret{ display:inline-block; color:var(--text-muted); margin-right:8px; transition:transform .15s; }
+.ptr.open .pt-caret{ transform:rotate(90deg); color:var(--ember); }
+.pt-risk{ font-family:var(--font-mono); font-size:11.5px; color:var(--text-muted); white-space:nowrap; }
+.pt-muted{ color:var(--text-muted); font-size:11.5px; }
+.stat-badge{ display:inline-block; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; padding:2px 9px; border:1px solid; border-radius:99px; white-space:nowrap; }
+.ptr-detail{ display:none; }
+.ptr-detail.open{ display:table-row; }
+.ptr-detail > td{ padding:0 14px 14px !important; background:color-mix(in srgb, var(--ember) 4%, var(--surface)); }
+.ptr-detail .action-item{ margin-top:0; }
+.kcol-alert{ border-color:color-mix(in srgb, var(--critical) 35%, var(--line)); }
+.kcol-alert h3{ border-bottom-color:var(--critical); color:var(--critical); }
+.kcol-alert h3 .count{ background:color-mix(in srgb, var(--critical) 15%, var(--surface-2)); color:var(--critical); }
+
+/* acompanhamento · queue + kpis + timeline filters */
+.acomp-kpis{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+.pq-item{ display:flex; gap:12px; padding:14px 0; border-top:1px solid var(--line); }
+.pq-item:first-child{ border-top:none; }
+.pq-dot{ flex:0 0 auto; width:10px; height:10px; border-radius:50%; margin-top:5px; }
+.pq-body{ flex:1; min-width:0; }
+.pq-title{ font-size:13.5px; font-weight:700; }
+.pq-meta{ font-size:11.5px; color:var(--text-muted); margin:3px 0 8px; }
+.acomp-tl-filters{ display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; margin:4px 0 14px; }
+.tl-risk-select{ background:var(--surface-2); border:1px solid var(--line); color:var(--text); border-radius:8px; padding:6px 10px; font-family:var(--font-body); font-size:12px; max-width:280px; }
+.tl-risk-select:focus{ outline:2px solid var(--ember); outline-offset:1px; }
+@media (max-width:980px){ .acomp-kpis{ grid-template-columns:1fr; } }
+
+/* dashboard · efficacy trend */
+.trend-chart{ display:flex; gap:12px; align-items:stretch; height:190px; padding-top:6px; }
+.trend-col{ flex:1; display:flex; flex-direction:column; align-items:center; }
+.trend-val{ font-family:var(--font-mono); font-size:11px; color:var(--text-muted); margin-bottom:6px; }
+.trend-bar-wrap{ flex:1; width:72%; max-width:48px; display:flex; align-items:flex-end; background:var(--surface-2); border-radius:6px 6px 0 0; overflow:hidden; }
+.trend-bar{ width:100%; border-radius:6px 6px 0 0; min-height:3px; transition:height .3s ease; }
+.trend-mon{ font-size:11px; color:var(--text); font-weight:700; margin-top:8px; text-transform:uppercase; letter-spacing:.03em; }
+.trend-cnt{ font-size:9.5px; color:var(--text-muted); font-family:var(--font-mono); margin-top:2px; }
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <div class="login-gate" id="loginGate">
   <div class="login-card">
     <div class="brand-mark" style="margin:0 auto 18px;">
-      <svg width="46" height="46" viewBox="0 0 46 46" fill="none">
-        <path d="M23 2 L41 9 V21 C41 32 33 40 23 44 C13 40 5 32 5 21 V9 Z" fill="var(--surface-3)" stroke="var(--gold)" stroke-width="1.4"/>
-        <rect x="16" y="20" width="14" height="11" rx="2" fill="var(--ember)"/>
-        <path d="M19.5 20 V16.5 a3.5 3.5 0 0 1 7 0 V20" stroke="var(--ember)" stroke-width="2" fill="none"/>
-        <circle cx="23" cy="25" r="1.7" fill="var(--surface-3)"/>
-      </svg>
+      <img src="assets/logo.png" alt="Fulfillment Security" width="56" height="56" style="display:block; object-fit:contain;" />
     </div>
     <div class="eyebrow" style="text-align:center;">Fulfillment Security</div>
     <h1 style="text-align:center; font-size:20px;">Gestão de Riscos · FBS-RS3</h1>
@@ -507,17 +624,15 @@ tbody tr:hover{background:var(--surface-2);}
     <div class="login-status" id="loginStatus"></div>
   </div>
 </div>
+<div class="toast-stack" id="toastStack" aria-live="polite"></div>
+<button class="nav-toggle" id="navToggleBtn" aria-label="Abrir menu" aria-expanded="false">☰</button>
+<div class="nav-backdrop" id="navBackdrop"></div>
 <div class="app">
   <aside class="sidebar">
     <div class="brand">
       <div class="brand-mark">
         <canvas id="markFx" width="74" height="74"></canvas>
-        <svg width="46" height="46" viewBox="0 0 46 46" fill="none">
-          <path d="M23 2 L41 9 V21 C41 32 33 40 23 44 C13 40 5 32 5 21 V9 Z" fill="var(--surface-3)" stroke="var(--gold)" stroke-width="1.4"/>
-          <rect x="16" y="20" width="14" height="11" rx="2" fill="var(--ember)"/>
-          <path d="M19.5 20 V16.5 a3.5 3.5 0 0 1 7 0 V20" stroke="var(--ember)" stroke-width="2" fill="none"/>
-          <circle cx="23" cy="25" r="1.7" fill="var(--surface-3)"/>
-        </svg>
+        <img src="assets/logo.png" alt="Fulfillment Security" width="46" height="46" style="position:relative; z-index:2; display:block; object-fit:contain;" />
       </div>
       <div class="brand-word">Fulfillment<span>Security &middot; FBS-RS3</span></div>
     </div>
@@ -664,6 +779,11 @@ tbody tr:hover{background:var(--surface-2);}
         </div>
       </div>
 
+      <div class="panel" style="margin-top:16px;">
+        <div class="panel-head"><h2>Tendência de eficácia dos controles</h2><span class="eyebrow">% verificações efetivas por mês</span></div>
+        <div id="effTrend"></div>
+      </div>
+
       <div class="grid-2" style="margin-top:16px;">
         <div class="panel">
           <div class="panel-head"><h2>Incidentes em aberto</h2></div>
@@ -759,15 +879,44 @@ tbody tr:hover{background:var(--surface-2);}
           <h1>Planos de ação</h1>
           <div class="sub" id="planosSub">Ações vinculadas aos riscos do FBS-RS3</div>
         </div>
+        <button class="btn-primary" id="newActionToggleBtn" style="width:auto; padding:9px 18px;">+ Nova ação</button>
       </div>
-      <div class="filter-row" id="kanbanFilter" style="margin-bottom:14px;">
-        <button class="filter-chip active" data-tipo="todos">Todos os tipos</button>
-        <button class="filter-chip" data-tipo="Evitar">Evitar</button>
-        <button class="filter-chip" data-tipo="Mitigar">Mitigar</button>
-        <button class="filter-chip" data-tipo="Transferir">Transferir</button>
-        <button class="filter-chip" data-tipo="Aceitar">Aceitar</button>
+
+      <div class="panel" id="newActionPanel" style="display:none; margin-bottom:14px;">
+        <div class="panel-head"><h2>Nova ação</h2></div>
+        <div class="field"><label>Risco relacionado</label><select id="paRisco" style="width:100%;"></select></div>
+        <div class="field"><label>Nome (micro-risco associado à ação)</label><input type="text" id="paMicroNome" placeholder="Ex.: Falha na revisão periódica das câmeras" /></div>
+        <div class="field"><label>Descrição da ação/controle</label><textarea id="paDescricao" style="height:70px;" placeholder="O que precisa ser feito, por quem e como"></textarea></div>
+        <div class="risk-edit-row">
+          <label>Tipo <select id="paTipo"><option>Evitar</option><option>Mitigar</option><option>Transferir</option><option>Aceitar</option></select></label>
+          <label>Status <select id="paStatus"><option>Não Iniciada</option><option>Em Andamento</option><option>Concluída</option><option>Atrasada</option></select></label>
+          <label>Responsável <input type="text" id="paResponsavel" list="dl-responsavel" placeholder="não definido" style="width:120px;" /></label>
+          <label>Prazo <input type="text" id="paPrazo" placeholder="indefinido" style="width:120px;" /></label>
+        </div>
+        <div style="display:flex; gap:8px; margin-top:12px;">
+          <button class="btn-primary" id="paSaveBtn" style="width:auto; padding:9px 18px;">Criar ação</button>
+          <button class="btn-ghost" id="paCancelBtn">Cancelar</button>
+        </div>
+        <div class="form-status" id="paStatusMsg"></div>
       </div>
-      <div class="kanban" id="kanban"></div>
+
+      <div class="planos-toolbar">
+        <input class="filter-search" id="planosSearch" style="flex:1 1 220px; min-width:180px;" placeholder="Buscar por ação, risco ou responsável…" />
+        <div class="filter-row" id="kanbanFilter">
+          <button class="filter-chip active" data-tipo="todos">Todos os tipos</button>
+          <button class="filter-chip" data-tipo="Evitar">Evitar</button>
+          <button class="filter-chip" data-tipo="Mitigar">Mitigar</button>
+          <button class="filter-chip" data-tipo="Transferir">Transferir</button>
+          <button class="filter-chip" data-tipo="Aceitar">Aceitar</button>
+        </div>
+        <div class="seg-toggle" id="planosViewToggle" role="tablist" aria-label="Modo de visualização">
+          <button class="seg-btn active" data-pview="tabela">Tabela</button>
+          <button class="seg-btn" data-pview="quadro">Quadro</button>
+        </div>
+      </div>
+      <div class="planos-summary" id="planosSummary"></div>
+      <div id="planosTable"></div>
+      <div class="kanban" id="kanban" style="display:none;"></div>
     </section>
 
     <!-- ACOMPANHAMENTO -->
@@ -779,18 +928,47 @@ tbody tr:hover{background:var(--surface-2);}
           <div class="sub">Histórico de verificações de eficácia registradas para cada ação — use para saber se o controle está surtindo o efeito esperado</div>
         </div>
       </div>
-      <div class="grid-2" style="margin-bottom:16px;">
+      <div class="planos-summary" id="acompSummary"></div>
+      <div class="acomp-kpis">
+        <div class="kpi" style="--stripe:var(--safe)">
+          <div class="k-label">Controles efetivos</div>
+          <div class="k-value" id="kpiEff">0</div>
+          <div class="k-delta" id="kpiEffSub"></div>
+        </div>
+        <div class="kpi" style="--stripe:var(--critical)">
+          <div class="k-label">Sem eficácia comprovada</div>
+          <div class="k-value" id="kpiNoEff">0</div>
+          <div class="k-delta bad" id="kpiNoEffSub"></div>
+        </div>
+        <div class="kpi" style="--stripe:var(--text-muted)">
+          <div class="k-label">Nunca verificados</div>
+          <div class="k-value" id="kpiNever">0</div>
+          <div class="k-delta" id="kpiNeverSub"></div>
+        </div>
+      </div>
+      <div class="grid-2" style="margin-top:16px; align-items:start;">
+        <div class="panel">
+          <div class="panel-head"><h2>Fila de verificação</h2><span class="eyebrow" id="queueCount"></span></div>
+          <div class="section-note" style="margin:0 0 12px;">Controles sem eficácia comprovada e nunca verificados — priorize de cima para baixo e registre a verificação direto aqui.</div>
+          <div id="pendingQueue"></div>
+        </div>
         <div class="panel">
           <div class="panel-head"><h2>Distribuição da última avaliação</h2></div>
           <div class="status-bars" id="effBars"></div>
         </div>
-        <div class="panel">
-          <div class="panel-head"><h2>Ações nunca verificadas</h2></div>
-          <div class="risk-list" id="neverChecked"></div>
-        </div>
       </div>
-      <div class="panel">
-        <div class="panel-head"><h2>Linha do tempo de verificações</h2><span class="eyebrow" id="timelineCount"></span></div>
+      <div class="panel" style="margin-top:16px;">
+        <div class="panel-head" style="gap:12px; flex-wrap:wrap;"><h2>Linha do tempo de verificações</h2><span class="eyebrow" id="timelineCount"></span></div>
+        <div class="acomp-tl-filters">
+          <div class="filter-row" id="tlEffFilter">
+            <button class="filter-chip active" data-eff="todas">Todas</button>
+            <button class="filter-chip" data-eff="Efetiva">Efetiva</button>
+            <button class="filter-chip" data-eff="Parcial">Parcial</button>
+            <button class="filter-chip" data-eff="Inefetiva">Inefetiva</button>
+            <button class="filter-chip" data-eff="Registrada">Registrada</button>
+          </div>
+          <select id="tlRiskFilter" class="tl-risk-select"></select>
+        </div>
         <div id="timelineFeed"></div>
       </div>
     </section>
@@ -813,6 +991,8 @@ tbody tr:hover{background:var(--surface-2);}
             <select id="niRisco" style="min-width:260px;"></select>
           </label>
           <label>Data <input type="date" id="niData" /></label>
+          <label>Área/local <input type="text" id="niArea" list="dl-area" placeholder="Ex.: Expedição" style="width:160px;" /></label>
+          <label>Responsável <input type="text" id="niResponsavel" list="dl-responsavel" placeholder="não definido" style="width:160px;" /></label>
         </div>
         <div class="field"><label>O que aconteceu</label><textarea id="niDescricao" style="height:70px;" placeholder="Descrição do que ocorreu"></textarea></div>
         <div class="risk-edit-row">
@@ -826,7 +1006,9 @@ tbody tr:hover{background:var(--surface-2);}
         <div class="form-status" id="niStatus"></div>
       </div>
 
+      <div class="planos-summary" id="incidentSummary"></div>
       <div class="panel-head" style="margin-bottom:12px;">
+        <input class="filter-search" id="incidentSearch" style="flex:1 1 220px; min-width:180px;" placeholder="Buscar por descrição, área, responsável ou risco…" />
         <div class="filter-row" id="incidenteStatusFilter">
           <button class="filter-chip active" data-ist="todos">Todos</button>
           <button class="filter-chip" data-ist="Aberto">Aberto</button>
@@ -870,7 +1052,9 @@ tbody tr:hover{background:var(--surface-2);}
         <div class="form-status" id="ncStatus"></div>
       </div>
 
+      <div class="planos-summary" id="ncSummary"></div>
       <div class="panel-head" style="margin-bottom:12px;">
+        <input class="filter-search" id="ncSearch" style="flex:1 1 220px; min-width:180px;" placeholder="Buscar por descrição, área, origem, responsável ou risco…" />
         <div class="filter-row" id="ncStatusFilter">
           <button class="filter-chip active" data-nst="todos">Todas</button>
           <button class="filter-chip" data-nst="Aberta">Aberta</button>
@@ -926,6 +1110,20 @@ const ACTIONS_SEED=[];
   });
 
   const navBtns = document.querySelectorAll('.navbtn');
+  const sidebarEl = document.querySelector('.sidebar');
+  const navToggleBtn = document.getElementById('navToggleBtn');
+  const navBackdrop = document.getElementById('navBackdrop');
+  function closeMobileNav(){
+    sidebarEl.classList.remove('open');
+    navBackdrop.classList.remove('open');
+    navToggleBtn.setAttribute('aria-expanded','false');
+  }
+  navToggleBtn.addEventListener('click', ()=>{
+    const open = sidebarEl.classList.toggle('open');
+    navBackdrop.classList.toggle('open', open);
+    navToggleBtn.setAttribute('aria-expanded', open?'true':'false');
+  });
+  navBackdrop.addEventListener('click', closeMobileNav);
   navBtns.forEach(btn=>{
     btn.addEventListener('click', ()=>{
       navBtns.forEach(b=>b.classList.remove('active'));
@@ -937,8 +1135,18 @@ const ACTIONS_SEED=[];
       if(btn.dataset.view==='incidentes') renderIncidentes();
       if(btn.dataset.view==='naoconformidades') renderNaoConformidades();
       if(btn.dataset.view==='cadastros') renderCadastros();
+      closeMobileNav();
     });
   });
+
+  function showToast(msg, type){
+    const stack = document.getElementById('toastStack');
+    const el = document.createElement('div');
+    el.className = 'toast' + (type==='ok' ? ' ok' : '');
+    el.textContent = msg;
+    stack.appendChild(el);
+    setTimeout(()=>{ el.style.transition='opacity .3s'; el.style.opacity='0'; setTimeout(()=>el.remove(), 320); }, 4200);
+  }
 
   /* ---------------- data layer ---------------- */
   const STORE_KEY = 'fsrisk_fbsrs3_v1';
@@ -975,10 +1183,11 @@ const ACTIONS_SEED=[];
       return Object.assign({}, r, {
         p: ('p' in ov) ? ov.p : r.p,
         i: ('i' in ov) ? ov.i : r.i,
-        dono: ('dono' in ov) ? ov.dono : r.dono
+        dono: ('dono' in ov) ? ov.dono : r.dono,
+        _deleted: ov._deleted || r._deleted || false
       });
     });
-    return source.map(r=> Object.assign({}, r, { nivel: (r.p && r.i) ? r.p*r.i : null }));
+    return source.filter(r=>!r._deleted).map(r=> Object.assign({}, r, { nivel: (r.p && r.i) ? r.p*r.i : null }));
   }
   function getActions(){
     const source = CLOUD ? CLOUD.actions : ACTIONS_SEED.concat(STORE.customActions).map(a=>{
@@ -986,10 +1195,11 @@ const ACTIONS_SEED=[];
       return Object.assign({}, a, {
         status: ('status' in ov) ? ov.status : a.status,
         responsavel: ('responsavel' in ov) ? ov.responsavel : a.responsavel,
-        prazo: ('prazo' in ov) ? ov.prazo : a.prazo
+        prazo: ('prazo' in ov) ? ov.prazo : a.prazo,
+        _deleted: ov._deleted || a._deleted || false
       });
     });
-    return source.map(a=> Object.assign({}, a, { status: normStatus(a.status) }));
+    return source.filter(a=>!a._deleted).map(a=> Object.assign({}, a, { status: normStatus(a.status) }));
   }
   function nextLocalId_(prefix, existingIds){
     let max = 0;
@@ -1039,11 +1249,11 @@ const ACTIONS_SEED=[];
   }
   function getIncidents(){
     const source = CLOUD ? CLOUD.incidents : STORE.customIncidents;
-    return (source || []).slice().sort((a,b)=> (b.data||'').localeCompare(a.data||''));
+    return (source || []).filter(x=>!x._deleted).slice().sort((a,b)=> (b.data||'').localeCompare(a.data||''));
   }
   function getNonConformities(){
     const source = CLOUD ? CLOUD.nonConformities : STORE.customNc;
-    return (source || []).slice().sort((a,b)=> (b.data||'').localeCompare(a.data||''));
+    return (source || []).filter(x=>!x._deleted).slice().sort((a,b)=> (b.data||'').localeCompare(a.data||''));
   }
   async function createIncident(data){
     if(CLOUD){
@@ -1244,7 +1454,9 @@ const ACTIONS_SEED=[];
     if(!cloudUrl) return;
     if(idToken) payload = Object.assign({}, payload, { idToken });
     fetch(cloudUrl, { method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify(payload) })
-      .catch(()=>{ cloudStatus = 'error'; updateSyncUI(); });
+      .then(res=>res.json().catch(()=>({ok:true})))
+      .then(result=>{ if(result && result.ok===false) showToast('Não foi possível salvar essa alteração na planilha. Tente de novo.', 'err'); })
+      .catch(()=>{ cloudStatus = 'error'; updateSyncUI(); showToast('Falha de conexão: a alteração não foi salva na planilha.', 'err'); });
   }
   function connectCloud(url){
     cloudUrl = (url || '').trim();
@@ -1402,7 +1614,7 @@ const ACTIONS_SEED=[];
 
     const critical = risks.filter(r=>r.nivel!=null && r.nivel>=15);
     document.getElementById('kpiCritical').textContent = critical.length;
-    document.getElementById('kpiCriticalSub').textContent = critical.length ? critical.map(r=>r.id).join(', ') : 'nenhum risco crítico';
+    document.getElementById('kpiCriticalSub').textContent = critical.length ? 'requer atenção imediata' : 'nenhum risco crítico';
 
     const ongoing = actions.filter(a=>a.status==='Em Andamento');
     document.getElementById('kpiOngoing').textContent = ongoing.length;
@@ -1458,6 +1670,33 @@ const ACTIONS_SEED=[];
         return `<div class="status-bar-row"><span>${escapeHtml(x.id)} · ${escapeHtml((x.descricao||'').slice(0,40))}${(x.descricao||'').length>40?'…':''}</span><span class="tabular" style="color:${ncStatusColor(x.status)}">${escapeHtml(x.status)}</span></div>`;
       }).join('') : '<div class="risk-meta" style="padding:8px 0;">Nenhuma não conformidade em aberto.</div>';
     }
+
+    const tEntries=[];
+    actions.forEach(a=> getTracking(a.id).forEach(t=> tEntries.push(t)));
+    const monNames=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+    const base=new Date(); base.setDate(1);
+    const months=[]; for(let i=5;i>=0;i--){ months.push(new Date(base.getFullYear(), base.getMonth()-i, 1)); }
+    const trendEl=document.getElementById('effTrend');
+    if(trendEl){
+      const cols = months.map(d=>{
+        const key = d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');
+        const inMon = tEntries.filter(t=> (t.date||'').slice(0,7)===key);
+        const tot = inMon.length;
+        const ok = inMon.filter(t=>t.efetividade==='Efetiva').length;
+        const pct = tot? Math.round(ok/tot*100) : null;
+        const col = pct==null?'var(--line)': pct>=80?'var(--safe)': pct>=50?'var(--watch)':'var(--critical)';
+        return {label:monNames[d.getMonth()]+'/'+String(d.getFullYear()).slice(2), pct, tot, col};
+      });
+      const anyData = cols.some(c=>c.pct!=null);
+      trendEl.innerHTML = anyData ? `<div class="trend-chart">`+cols.map(c=>`
+        <div class="trend-col">
+          <div class="trend-val">${c.pct==null?'—':c.pct+'%'}</div>
+          <div class="trend-bar-wrap"><div class="trend-bar" style="height:${c.pct==null?2:Math.max(4,c.pct)}%; background:${c.col}"></div></div>
+          <div class="trend-mon">${c.label}</div>
+          <div class="trend-cnt">${c.tot?c.tot+' verif.':''}</div>
+        </div>`).join('')+`</div>` :
+        '<div class="risk-meta" style="padding:8px 0;">Sem verificações registradas ainda para montar a tendência.</div>';
+    }
   }
 
   /* ---------------- matriz ---------------- */
@@ -1486,6 +1725,7 @@ const ACTIONS_SEED=[];
             ${last ? `<span class="eff-pill ${last.efetividade}">${last.efetividade} · ${fmtDate(last.date)}</span>` : `<span class="eff-pill Registrada" style="opacity:.6">sem verificação</span>`}
           </div>
         </div>
+        <button class="del-icon-btn" data-del-action="${a.id}" title="Excluir ação" aria-label="Excluir ação">✕</button>
       </div>
       <div class="action-desc">${escapeHtml(a.descricao)}</div>
       <div class="action-meta-row">
@@ -1533,7 +1773,7 @@ const ACTIONS_SEED=[];
   function riskCardHtml(r, actions){
     return `
     <div class="risk-card ${openRiskIds.has(r.id)?'open':''}" data-id="${r.id}">
-      <div class="risk-card-head">
+      <div class="risk-card-head" tabindex="0" role="button" aria-expanded="${openRiskIds.has(r.id)?'true':'false'}">
         <div class="sev-chip" style="background:${sevColor(r.nivel)}">${r.nivel!=null?r.nivel:'—'}</div>
         <div style="flex:1;">
           <div class="risk-card-title">${r.id} · ${escapeHtml(r.nome)}</div>
@@ -1545,6 +1785,7 @@ const ACTIONS_SEED=[];
           </div>
         </div>
         <div class="risk-card-actions-count">${actions.length} ação(ões)</div>
+        <button class="del-icon-btn" data-del-risk="${r.id}" title="Excluir risco" aria-label="Excluir risco">✕</button>
         <svg class="chev" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M5 2 L11 8 L5 14" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
       </div>
       <div class="risk-card-body">
@@ -1620,11 +1861,39 @@ const ACTIONS_SEED=[];
     box.innerHTML = filtered.length ? filtered.map(r=> riskCardHtml(r, actions.filter(a=>a.riscoId===r.id))).join('') : '<div class="empty-state">Nenhum risco encontrado com os filtros atuais.</div>';
 
     box.querySelectorAll('.risk-card-head').forEach(head=>{
-      head.addEventListener('click', ()=>{
+      const toggle = ()=>{
         const card = head.closest('.risk-card');
         const id = card.dataset.id;
         card.classList.toggle('open');
+        head.setAttribute('aria-expanded', card.classList.contains('open')?'true':'false');
         if(card.classList.contains('open')) openRiskIds.add(id); else openRiskIds.delete(id);
+      };
+      head.addEventListener('click', toggle);
+      head.addEventListener('keydown', (e)=>{
+        if(e.key==='Enter' || e.key===' '){ e.preventDefault(); toggle(); }
+      });
+    });
+    box.querySelectorAll('[data-del-risk]').forEach(btn=>{
+      btn.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        if(!confirm('Excluir este risco e todos os planos de ação vinculados a ele? Esta ação não pode ser desfeita.')) return;
+        updateRiskField(btn.dataset.delRisk, '_deleted', true);
+        showToast('Risco excluído.', 'ok');
+        renderRiscos();
+        renderPlanos();
+        renderDashboardIfActive();
+        renderMatrizIfActive();
+      });
+    });
+    box.querySelectorAll('[data-del-action]').forEach(btn=>{
+      btn.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        if(!confirm('Excluir esta ação/controle? Esta ação não pode ser desfeita.')) return;
+        updateActionField(btn.dataset.delAction, '_deleted', true);
+        showToast('Ação excluída.', 'ok');
+        renderRiscos();
+        renderPlanos();
+        renderDashboardIfActive();
       });
     });
     wireTrackToggles(box);
@@ -1727,6 +1996,14 @@ const ACTIONS_SEED=[];
 
   /* ---------------- planos (kanban) ---------------- */
   let kanbanTipoFilter = 'todos';
+  let planosQuery = '';
+  const KANBAN_ORDER = ['Atrasada','Em Andamento','Não Iniciada','Concluída'];
+  function planosMatch(a, riskById, q){
+    if(!q) return true;
+    const r = riskById[a.riscoId];
+    const hay = [a.microNome, a.descricao, a.responsavel, a.riscoId, r?r.nome:'', r?r.id:''].filter(Boolean).join(' ').toLowerCase();
+    return hay.includes(q);
+  }
   document.getElementById('kanbanFilter').addEventListener('click', (e)=>{
     const chip = e.target.closest('.filter-chip');
     if(!chip) return;
@@ -1735,23 +2012,98 @@ const ACTIONS_SEED=[];
     kanbanTipoFilter = chip.dataset.tipo;
     renderPlanos();
   });
+  document.getElementById('planosSearch').addEventListener('input', (e)=>{
+    planosQuery = e.target.value;
+    renderPlanos();
+  });
+  document.getElementById('newActionToggleBtn').addEventListener('click', ()=>{
+    const panel = document.getElementById('newActionPanel');
+    const willOpen = panel.style.display==='none';
+    panel.style.display = willOpen ? 'block' : 'none';
+    if(willOpen) document.getElementById('paMicroNome').focus();
+  });
+  document.getElementById('paCancelBtn').addEventListener('click', ()=>{
+    document.getElementById('newActionPanel').style.display = 'none';
+    ['paMicroNome','paDescricao','paResponsavel','paPrazo'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
+    document.getElementById('paStatusMsg').textContent = '';
+  });
+  document.getElementById('paSaveBtn').addEventListener('click', async ()=>{
+    const riscoId = document.getElementById('paRisco').value;
+    const microNome = document.getElementById('paMicroNome').value.trim();
+    const descricao = document.getElementById('paDescricao').value.trim();
+    const statusEl = document.getElementById('paStatusMsg');
+    if(!riscoId || !microNome){ statusEl.textContent = 'Selecione o risco e preencha o nome da ação.'; statusEl.classList.add('err'); return; }
+    const btn = document.getElementById('paSaveBtn');
+    btn.disabled = true; statusEl.textContent = 'Salvando…'; statusEl.classList.remove('err');
+    const data = {
+      riscoId, microNome, descricao,
+      tipo: document.getElementById('paTipo').value,
+      status: document.getElementById('paStatus').value,
+      responsavel: document.getElementById('paResponsavel').value.trim() || null,
+      prazo: document.getElementById('paPrazo').value.trim() || null,
+      custo: null
+    };
+    const result = await createAction(data);
+    btn.disabled = false;
+    if(!result.ok){ statusEl.textContent = 'Erro ao salvar: ' + (result.error||'desconhecido'); statusEl.classList.add('err'); return; }
+    document.getElementById('newActionPanel').style.display = 'none';
+    ['paMicroNome','paDescricao','paResponsavel','paPrazo'].forEach(id=>{ document.getElementById(id).value=''; });
+    statusEl.textContent = '';
+    showToast('Ação criada.', 'ok');
+    renderPlanos(); renderRiscos(); renderDashboardIfActive();
+  });
 
+  let planosViewMode = 'tabela';
+  const openPtableIds = new Set();
+  let planosSort = { key:'status', dir:1 };
+  function planosStatusRank(s){ return ({'Atrasada':0,'Em Andamento':1,'Não Iniciada':2,'Concluída':3})[s] ?? 4; }
+  document.getElementById('planosViewToggle').addEventListener('click', (e)=>{
+    const b = e.target.closest('.seg-btn'); if(!b) return;
+    document.querySelectorAll('#planosViewToggle .seg-btn').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    planosViewMode = b.dataset.pview;
+    renderPlanos();
+  });
   function renderPlanos(){
-    const actions = getActions().filter(a=> kanbanTipoFilter==='todos' || a.tipo===kanbanTipoFilter);
+    const all = getActions();
     const risks = getRisks();
     const riskById = {}; risks.forEach(r=>riskById[r.id]=r);
-    document.getElementById('navCountPlanos').textContent = getActions().length;
-    document.getElementById('planosSub').textContent = actions.length + ' ações exibidas de ' + getActions().length + ' no total';
+    const q = planosQuery.trim().toLowerCase();
+    const actions = all.filter(a=> (kanbanTipoFilter==='todos' || a.tipo===kanbanTipoFilter) && planosMatch(a, riskById, q));
+    populateRiskSelect(document.getElementById('paRisco'), false);
+    document.getElementById('navCountPlanos').textContent = all.length;
+    document.getElementById('planosSub').textContent = actions.length + ' ações exibidas de ' + all.length + ' no total';
+
+    const atrasadas = actions.filter(a=>a.status==='Atrasada').length;
+    const concluidas = actions.filter(a=>a.status==='Concluída').length;
+    const andamento = actions.filter(a=>a.status==='Em Andamento').length;
+    document.getElementById('planosSummary').innerHTML =
+      `<span><strong>${actions.length}</strong> ações</span>`+
+      `<span class="ps-warn"><strong>${atrasadas}</strong> atrasadas</span>`+
+      `<span><strong>${andamento}</strong> em andamento</span>`+
+      `<span class="ps-ok"><strong>${concluidas}</strong> concluídas</span>`;
+
+    const kanbanEl = document.getElementById('kanban');
+    const tableEl = document.getElementById('planosTable');
+    if(planosViewMode==='tabela'){
+      kanbanEl.style.display='none';
+      tableEl.style.display='';
+      renderPlanosTable(actions, riskById, tableEl);
+      return;
+    }
+    tableEl.style.display='none';
+    kanbanEl.style.display='';
 
     const cols = {};
-    STATUS_OPTIONS.forEach(s=>cols[s]=[]);
+    KANBAN_ORDER.forEach(s=>cols[s]=[]);
+    STATUS_OPTIONS.forEach(s=>{ if(!cols[s]) cols[s]=[]; });
     actions.forEach(a=>{ if(!cols[a.status]) cols[a.status]=[]; cols[a.status].push(a); });
 
     const kanban = document.getElementById('kanban');
     kanban.innerHTML='';
     Object.entries(cols).forEach(([status, items])=>{
       const col = document.createElement('div');
-      col.className='kcol';
+      col.className = 'kcol' + (status==='Atrasada' ? ' kcol-alert' : '');
       col.innerHTML = `<h3>${status} <span class="count">${items.length}</span></h3>`;
       items.forEach(a=>{
         const r = riskById[a.riscoId];
@@ -1785,71 +2137,183 @@ const ACTIONS_SEED=[];
     wireTrackingForms(kanban);
   }
 
+  function renderPlanosTable(actions, riskById, tableEl){
+    const sorted = actions.slice().sort((a,b)=>{
+      const k=planosSort.key; let va,vb;
+      if(k==='status'){ va=planosStatusRank(a.status); vb=planosStatusRank(b.status); }
+      else if(k==='prazo'){ va=(a.prazo||'~~~'); vb=(b.prazo||'~~~'); }
+      else if(k==='eff'){ const la=getTracking(a.id)[0], lb=getTracking(b.id)[0]; va=la?EFF_OPTIONS.indexOf(la.efetividade):99; vb=lb?EFF_OPTIONS.indexOf(lb.efetividade):99; }
+      else { va=(a.microNome||a.id).toLowerCase(); vb=(b.microNome||b.id).toLowerCase(); }
+      if(va<vb) return -planosSort.dir; if(va>vb) return planosSort.dir; return 0;
+    });
+    const arw = k => planosSort.key===k ? (planosSort.dir>0?' ▲':' ▼') : '';
+    let html = `<div class="ptable-wrap"><table class="ptable"><thead><tr>`+
+      `<th class="sortable" data-sort="nome">Ação${arw('nome')}</th>`+
+      `<th>Risco</th><th>Tipo</th>`+
+      `<th class="sortable" data-sort="status">Status${arw('status')}</th>`+
+      `<th>Responsável</th>`+
+      `<th class="sortable" data-sort="prazo">Prazo${arw('prazo')}</th>`+
+      `<th class="sortable" data-sort="eff">Última eficácia${arw('eff')}</th>`+
+      `</tr></thead><tbody>`;
+    if(!sorted.length){
+      html += `<tr><td colspan="7"><div class="empty-state">Nenhuma ação para o filtro selecionado.</div></td></tr>`;
+    }
+    sorted.forEach(a=>{
+      const r = riskById[a.riscoId];
+      const last = getTracking(a.id)[0];
+      const isOpen = openPtableIds.has(a.id);
+      html += `<tr class="ptr ${isOpen?'open':''}" data-ptr="${a.id}" tabindex="0" role="button" aria-expanded="${isOpen?'true':'false'}">`+
+        `<td class="pt-name"><span class="pt-caret">▸</span>${escapeHtml(a.microNome||a.id)}</td>`+
+        `<td class="pt-risk">${r?escapeHtml(r.id):escapeHtml(a.riscoId||'—')}</td>`+
+        `<td><span class="badge-tipo ${a.tipo||''}">${a.tipo||'—'}</span></td>`+
+        `<td><span class="stat-badge" style="color:${statusColor(a.status)}; border-color:${statusColor(a.status)}">${escapeHtml(a.status)}</span></td>`+
+        `<td>${escapeHtml(a.responsavel||'—')}</td>`+
+        `<td class="tabular">${escapeHtml(a.prazo||'—')}</td>`+
+        `<td>${last?`<span class="eff-pill ${last.efetividade}">${last.efetividade}</span>`:`<span class="pt-muted">sem verificação</span>`}</td>`+
+        `</tr>`+
+        `<tr class="ptr-detail ${isOpen?'open':''}" data-detail="${a.id}"><td colspan="7">${actionItemHtml(a)}</td></tr>`;
+    });
+    html += `</tbody></table></div>`;
+    tableEl.innerHTML = html;
+    tableEl.querySelectorAll('th.sortable').forEach(th=>{
+      th.addEventListener('click', ()=>{
+        const k=th.dataset.sort;
+        if(planosSort.key===k) planosSort.dir*=-1; else { planosSort.key=k; planosSort.dir=1; }
+        renderPlanos();
+      });
+    });
+    tableEl.querySelectorAll('.ptr').forEach(row=>{
+      const toggle=()=>{
+        const id=row.dataset.ptr;
+        const open = !openPtableIds.has(id);
+        if(open) openPtableIds.add(id); else openPtableIds.delete(id);
+        const detail=tableEl.querySelector(`.ptr-detail[data-detail="${id}"]`);
+        row.classList.toggle('open',open); if(detail) detail.classList.toggle('open',open);
+        row.setAttribute('aria-expanded',open?'true':'false');
+      };
+      row.addEventListener('click',toggle);
+      row.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); toggle(); }});
+    });
+    tableEl.querySelectorAll('[data-del-action]').forEach(btn=>{
+      btn.addEventListener('click',e=>{ e.stopPropagation();
+        if(!confirm('Excluir esta ação/controle? Esta ação não pode ser desfeita.')) return;
+        updateActionField(btn.dataset.delAction,'_deleted',true);
+        showToast('Ação excluída.','ok'); renderPlanos(); renderRiscos(); renderDashboardIfActive();
+      });
+    });
+    wireTrackToggles(tableEl); wireEditableFields(tableEl); wireTrackingForms(tableEl);
+  }
+
   /* ---------------- acompanhamento ---------------- */
+  let tlEffState = 'todas';
+  let tlRiskState = '';
   function renderAcompanhamento(){
     const actions = getActions();
     const risks = getRisks();
     const riskById = {}; risks.forEach(r=>riskById[r.id]=r);
 
     const lastByAction = actions.map(a=>({a, last: getTracking(a.id)[0]}));
+    const effOk = lastByAction.filter(x=>x.last && x.last.efetividade==='Efetiva');
+    const noEff = lastByAction.filter(x=>x.last && x.last.efetividade!=='Efetiva');
+    const never = lastByAction.filter(x=>!x.last);
+
+    document.getElementById('kpiEff').textContent = effOk.length;
+    document.getElementById('kpiEffSub').textContent = actions.length ? Math.round(effOk.length/actions.length*100)+'% dos controles' : '—';
+    document.getElementById('kpiNoEff').textContent = noEff.length;
+    document.getElementById('kpiNoEffSub').textContent = noEff.length ? 'reavaliar / corrigir' : 'nenhum';
+    document.getElementById('kpiNever').textContent = never.length;
+    document.getElementById('kpiNeverSub').textContent = never.length ? 'sem 1ª verificação' : 'todos verificados';
+
+    const allEntries = [];
+    actions.forEach(a=> getTracking(a.id).forEach(t=> allEntries.push(Object.assign({actionId:a.id}, t))));
+    const now = Date.now();
+    const last30 = allEntries.filter(e=> (now - new Date(e.date+'T00:00:00').getTime()) <= 30*864e5).length;
+    const withLast = lastByAction.filter(x=>x.last).length;
+    const pctEff = withLast ? Math.round(effOk.length/withLast*100) : 0;
+    document.getElementById('acompSummary').innerHTML =
+      `<span><strong>${allEntries.length}</strong> verificações</span>`+
+      `<span><strong>${last30}</strong> nos últimos 30 dias</span>`+
+      `<span class="ps-ok"><strong>${pctEff}%</strong> efetivas</span>`;
+
     const effCounts = {}; EFF_OPTIONS.forEach(e=>effCounts[e]=0);
-    let noneCount = 0;
-    lastByAction.forEach(({last})=>{ if(last) effCounts[last.efetividade]++; else noneCount++; });
+    lastByAction.forEach(({last})=>{ if(last) effCounts[last.efetividade]++; });
     const effBox = document.getElementById('effBars');
-    effBox.innerHTML='';
-    const maxE = Math.max(1, noneCount, ...Object.values(effCounts));
-    Object.entries(effCounts).forEach(([k,v])=>{
-      effBox.innerHTML += `<div class="status-bar-row"><span>${k}</span><div class="bar-track"><div class="bar-fill" style="width:${v/maxE*100}%; background:${effColor(k)}"></div></div><span class="tabular">${v}</span></div>`;
-    });
-    effBox.innerHTML += `<div class="status-bar-row"><span>Nunca verificada</span><div class="bar-track"><div class="bar-fill" style="width:${noneCount/maxE*100}%; background:var(--line)"></div></div><span class="tabular">${noneCount}</span></div>`;
+    const maxE = Math.max(1, never.length, ...Object.values(effCounts));
+    effBox.innerHTML = Object.entries(effCounts).map(([k,v])=>
+      `<div class="status-bar-row"><span>${k}</span><div class="bar-track"><div class="bar-fill" style="width:${v/maxE*100}%; background:${effColor(k)}"></div></div><span class="tabular">${v}</span></div>`).join('')
+      + `<div class="status-bar-row"><span>Nunca verificada</span><div class="bar-track"><div class="bar-fill" style="width:${never.length/maxE*100}%; background:var(--line)"></div></div><span class="tabular">${never.length}</span></div>`;
 
-    const neverBox = document.getElementById('neverChecked');
-    const never = lastByAction.filter(x=>!x.last).map(x=>x.a);
-    neverBox.innerHTML = never.length ? '' : '<div class="risk-meta" style="padding:8px 0;">Todas as ações já têm ao menos uma verificação.</div>';
-    never.slice(0,12).forEach(a=>{
-      const r = riskById[a.riscoId];
-      const row = document.createElement('div');
-      row.className='risk-row';
-      row.innerHTML = `
-        <span class="sev-stripe" style="background:var(--text-muted)"></span>
-        <div>
-          <div class="risk-name">${escapeHtml(a.microNome||a.id)}</div>
-          <div class="risk-meta">${r?escapeHtml(r.id+' · '+r.nome):a.riscoId} · ${a.status}</div>
-        </div>
-      `;
-      row.style.cursor='pointer';
-      row.addEventListener('click', ()=>openRiskView(a.riscoId));
-      neverBox.appendChild(row);
-    });
+    const rank = last => !last ? 2 : (last.efetividade==='Inefetiva'?0 : last.efetividade==='Parcial'?1 : last.efetividade==='Registrada'?3 : 9);
+    const pending = lastByAction.filter(x=> !x.last || x.last.efetividade!=='Efetiva').sort((A,B)=> rank(A.last)-rank(B.last));
+    document.getElementById('queueCount').textContent = pending.length + ' pendente(s)';
+    const queueEl = document.getElementById('pendingQueue');
+    if(!pending.length){
+      queueEl.innerHTML = '<div class="risk-meta" style="padding:8px 0;">Todos os controles têm eficácia comprovada.</div>';
+    } else {
+      queueEl.innerHTML = pending.map(({a,last})=>{
+        const r = riskById[a.riscoId];
+        const col = last ? effColor(last.efetividade) : 'var(--text-muted)';
+        const lbl = last ? `${last.efetividade} · ${fmtDate(last.date)}` : 'nunca verificado';
+        return `
+        <div class="pq-item">
+          <span class="pq-dot" style="background:${col}"></span>
+          <div class="pq-body">
+            <div class="pq-title">${escapeHtml(a.microNome||a.id)}</div>
+            <div class="pq-meta">${r?escapeHtml(r.id+' · '+r.nome):escapeHtml(a.riscoId||'—')} · último: ${lbl}</div>
+            <div class="track-add">
+              <select data-eff-select="${a.id}">${EFF_OPTIONS.map(o=>`<option value="${o}">${o}</option>`).join('')}</select>
+              <input type="text" data-eff-note="${a.id}" placeholder="Nota da verificação (opcional)" />
+              <button class="btn-sm" data-eff-add="${a.id}">Registrar verificação</button>
+            </div>
+          </div>
+        </div>`;
+      }).join('');
+      queueEl.querySelectorAll('[data-eff-add]').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          const id = btn.dataset.effAdd;
+          const sel = queueEl.querySelector('[data-eff-select="'+id+'"]');
+          const note = queueEl.querySelector('[data-eff-note="'+id+'"]');
+          addTracking(id, { date: todayISO(), efetividade: sel.value, nota: note.value.trim() });
+          showToast('Verificação registrada.','ok');
+          renderAcompanhamento(); renderRiscos(); renderPlanos(); renderDashboardIfActive();
+        });
+      });
+    }
 
-    const entries = [];
-    Object.entries(STORE.tracking).forEach(([actionId, list])=>{
-      list.forEach(t=> entries.push(Object.assign({actionId}, t)));
-    });
-    entries.sort((a,b)=> b.date.localeCompare(a.date));
-    document.getElementById('timelineCount').textContent = entries.length + ' registro(s)';
+    const riskSel = document.getElementById('tlRiskFilter');
+    const actById = {}; actions.forEach(a=>actById[a.id]=a);
+    const risksWithActions = [...new Set(actions.map(a=>a.riscoId))].map(id=>riskById[id]).filter(Boolean).sort((a,b)=> a.id.localeCompare(b.id, undefined,{numeric:true}));
+    riskSel.innerHTML = '<option value="">Todos os riscos</option>' + risksWithActions.map(r=>`<option value="${r.id}" ${tlRiskState===r.id?'selected':''}>${escapeHtml(r.id+' · '+r.nome)}</option>`).join('');
+
+    let entries = allEntries.slice().sort((a,b)=> b.date.localeCompare(a.date));
+    if(tlEffState!=='todas') entries = entries.filter(e=> e.efetividade===tlEffState);
+    if(tlRiskState) entries = entries.filter(e=> (actById[e.actionId]||{}).riscoId===tlRiskState);
+    document.getElementById('timelineCount').textContent = entries.length + ' de ' + allEntries.length + ' registro(s)';
     const feed = document.getElementById('timelineFeed');
     if(!entries.length){
-      feed.innerHTML = '<div class="empty-state">Nenhuma verificação de eficácia registrada ainda. Abra um risco na aba Riscos ou Planos de Ação e registre um acompanhamento.</div>';
+      feed.innerHTML = '<div class="empty-state">'+(allEntries.length?'Nenhuma verificação para este filtro.':'Nenhuma verificação de eficácia registrada ainda. Registre uma na fila acima ou na aba Planos de Ação.')+'</div>';
       return;
     }
     feed.innerHTML = entries.map(e=>{
-      const a = actions.find(x=>x.id===e.actionId);
+      const a = actById[e.actionId];
       const r = a ? riskById[a.riscoId] : null;
       return `
       <div class="occ-item">
         <div class="occ-thumb" style="color:${effColor(e.efetividade)}">●</div>
         <div class="occ-body">
           <div class="occ-top"><span class="occ-title">${a?escapeHtml(a.microNome||a.id):e.actionId}</span><span class="occ-time">${fmtDate(e.date)}</span></div>
-          <div class="occ-tags">
-            <span class="tag">${e.efetividade}</span>
-            ${r?`<span class="tag">${escapeHtml(r.id)}</span>`:''}
-          </div>
+          <div class="occ-tags"><span class="tag">${e.efetividade}</span>${r?`<span class="tag">${escapeHtml(r.id)}</span>`:''}</div>
           ${e.nota ? `<div style="font-size:12px; color:var(--text-muted); margin-top:6px;">${escapeHtml(e.nota)}</div>` : ''}
         </div>
       </div>`;
     }).join('');
   }
+  document.getElementById('tlEffFilter').addEventListener('click', (e)=>{
+    const c = e.target.closest('.filter-chip'); if(!c) return;
+    document.querySelectorAll('#tlEffFilter .filter-chip').forEach(x=>x.classList.remove('active'));
+    c.classList.add('active'); tlEffState = c.dataset.eff; renderAcompanhamento();
+  });
+  document.getElementById('tlRiskFilter').addEventListener('change', (e)=>{ tlRiskState = e.target.value; renderAcompanhamento(); });
 
   /* ---------------- incidentes ---------------- */
   const INCIDENT_STATUS_OPTIONS = ['Aberto','Em Investigação','Encerrado'];
@@ -1865,6 +2329,13 @@ const ACTIONS_SEED=[];
   }
 
   let incidentFilter = 'todos';
+  let incidentQuery = '';
+  function incidentMatch(x, riskById, q){
+    if(!q) return true;
+    const r = riskById[x.riscoId];
+    const hay = [x.descricao, x.area, x.responsavel, x.causaRaiz, r?r.nome:'', r?r.id:''].filter(Boolean).join(' ').toLowerCase();
+    return hay.includes(q);
+  }
   function renderIncidentes(){
     const incidents = getIncidents();
     const risks = getRisks();
@@ -1874,10 +2345,20 @@ const ACTIONS_SEED=[];
 
     populateRiskSelect(document.getElementById('niRisco'), false);
 
-    const filtered = incidentFilter==='todos' ? incidents : incidents.filter(x=>x.status===incidentFilter);
+    const abertos = incidents.filter(x=>x.status==='Aberto').length;
+    const investigacao = incidents.filter(x=>x.status==='Em Investigação').length;
+    const encerrados = incidents.filter(x=>x.status==='Encerrado').length;
+    document.getElementById('incidentSummary').innerHTML =
+      `<span><strong>${incidents.length}</strong> incidentes</span>`+
+      `<span class="ps-warn"><strong>${abertos}</strong> abertos</span>`+
+      `<span><strong>${investigacao}</strong> em investigação</span>`+
+      `<span class="ps-ok"><strong>${encerrados}</strong> encerrados</span>`;
+
+    const q = incidentQuery.trim().toLowerCase();
+    const filtered = incidents.filter(x=> (incidentFilter==='todos' || x.status===incidentFilter) && incidentMatch(x, riskById, q));
     const box = document.getElementById('incidentList');
     if(!filtered.length){
-      box.innerHTML = '<div class="empty-state">Nenhum incidente registrado' + (incidentFilter==='todos' ? ' ainda.' : ' com esse status.') + '</div>';
+      box.innerHTML = '<div class="empty-state">Nenhum incidente encontrado para esse filtro.</div>';
       return;
     }
     box.innerHTML = filtered.map(x=>{
@@ -1890,9 +2371,11 @@ const ACTIONS_SEED=[];
             <div style="display:flex; gap:6px; margin-top:4px; align-items:center; flex-wrap:wrap;">
               <span class="eff-pill" style="background:${incidentStatusColor(x.status)}22; color:${incidentStatusColor(x.status)};">${escapeHtml(x.status)}</span>
               <span class="tag">${fmtDate(x.data)}</span>
+              ${x.area?`<span class="tag">${escapeHtml(x.area)}</span>`:''}
               ${r?`<span class="tag">${escapeHtml(r.id+' · '+r.nome)}</span>`:''}
             </div>
           </div>
+          <button class="del-icon-btn" data-del-incident="${x.id}" title="Excluir incidente" aria-label="Excluir incidente">✕</button>
         </div>
         ${x.perdas?`<div class="action-desc"><strong>Perdas:</strong> ${escapeHtml(x.perdas)}</div>`:''}
         ${x.causaRaiz?`<div class="action-desc"><strong>Causa raiz:</strong> ${escapeHtml(x.causaRaiz)}</div>`:''}
@@ -1902,6 +2385,14 @@ const ACTIONS_SEED=[];
             <select data-incident-field="status" data-incident-id="${x.id}">
               ${INCIDENT_STATUS_OPTIONS.map(s=>`<option value="${s}" ${x.status===s?'selected':''}>${s}</option>`).join('')}
             </select>
+          </div>
+          <div class="field-inline">
+            <span class="fk">Área/local</span>
+            <input type="text" data-incident-field="area" data-incident-id="${x.id}" list="dl-area" value="${escapeHtml(x.area||'')}" placeholder="não definida" style="width:130px;" />
+          </div>
+          <div class="field-inline">
+            <span class="fk">Responsável</span>
+            <input type="text" data-incident-field="responsavel" data-incident-id="${x.id}" list="dl-responsavel" value="${escapeHtml(x.responsavel||'')}" placeholder="não definido" style="width:140px;" />
           </div>
         </div>
       </div>`;
@@ -1913,14 +2404,32 @@ const ACTIONS_SEED=[];
         renderIncidentes();
       });
     });
+    box.querySelectorAll('[data-del-incident]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        if(!confirm('Excluir este registro de incidente? Esta ação não pode ser desfeita.')) return;
+        updateIncidentField(btn.dataset.delIncident, '_deleted', true);
+        showToast('Incidente excluído.', 'ok');
+        renderIncidentes();
+        renderDashboardIfActive();
+      });
+    });
   }
+
+  document.getElementById('incidentSearch').addEventListener('input', (e)=>{
+    incidentQuery = e.target.value;
+    renderIncidentes();
+  });
 
   document.getElementById('newIncidentToggleBtn').addEventListener('click', ()=>{
     const panel = document.getElementById('newIncidentPanel');
-    panel.style.display = panel.style.display==='none' ? 'block' : 'none';
+    const willOpen = panel.style.display==='none';
+    panel.style.display = willOpen ? 'block' : 'none';
+    if(willOpen) document.getElementById('niRisco').focus();
   });
   document.getElementById('niCancelBtn').addEventListener('click', ()=>{
     document.getElementById('newIncidentPanel').style.display = 'none';
+    ['niRisco','niData','niArea','niResponsavel','niDescricao','niPerdas','niCausaRaiz'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
+    document.getElementById('niStatus').textContent = '';
   });
   document.getElementById('niSaveBtn').addEventListener('click', async ()=>{
     const riscoId = document.getElementById('niRisco').value;
@@ -1933,6 +2442,8 @@ const ACTIONS_SEED=[];
     statusEl.textContent = 'Salvando…'; statusEl.classList.remove('err');
     const result = await createIncident({
       riscoId, data: dataVal, descricao,
+      area: document.getElementById('niArea').value.trim() || null,
+      responsavel: document.getElementById('niResponsavel').value.trim() || null,
       perdas: document.getElementById('niPerdas').value.trim() || null,
       causaRaiz: document.getElementById('niCausaRaiz').value.trim() || null,
       status: 'Aberto'
@@ -1940,7 +2451,7 @@ const ACTIONS_SEED=[];
     btn.disabled = false;
     if(!result.ok){ statusEl.textContent = 'Erro ao salvar: ' + (result.error||'desconhecido'); statusEl.classList.add('err'); return; }
     statusEl.textContent = '';
-    ['niData','niDescricao','niPerdas','niCausaRaiz'].forEach(id=> document.getElementById(id).value='');
+    ['niData','niArea','niResponsavel','niDescricao','niPerdas','niCausaRaiz'].forEach(id=> document.getElementById(id).value='');
     document.getElementById('newIncidentPanel').style.display = 'none';
     renderIncidentes();
     renderDashboardIfActive();
@@ -1962,6 +2473,13 @@ const ACTIONS_SEED=[];
     return 'var(--critical)';
   }
   let ncFilter = 'todos';
+  let ncQuery = '';
+  function ncMatch(x, riskById, q){
+    if(!q) return true;
+    const r = riskById[x.riscoId];
+    const hay = [x.descricao, x.area, x.origem, x.responsavel, r?r.nome:'', r?r.id:''].filter(Boolean).join(' ').toLowerCase();
+    return hay.includes(q);
+  }
   function renderNaoConformidades(){
     const list = getNonConformities();
     const risks = getRisks();
@@ -1971,10 +2489,20 @@ const ACTIONS_SEED=[];
 
     populateRiskSelect(document.getElementById('ncRisco'), true);
 
-    const filtered = ncFilter==='todos' ? list : list.filter(x=>x.status===ncFilter);
+    const abertas = list.filter(x=>x.status==='Aberta').length;
+    const tratamento = list.filter(x=>x.status==='Em Tratamento').length;
+    const corrigidas = list.filter(x=>x.status==='Corrigida').length;
+    document.getElementById('ncSummary').innerHTML =
+      `<span><strong>${list.length}</strong> não conformidades</span>`+
+      `<span class="ps-warn"><strong>${abertas}</strong> abertas</span>`+
+      `<span><strong>${tratamento}</strong> em tratamento</span>`+
+      `<span class="ps-ok"><strong>${corrigidas}</strong> corrigidas</span>`;
+
+    const q = ncQuery.trim().toLowerCase();
+    const filtered = list.filter(x=> (ncFilter==='todos' || x.status===ncFilter) && ncMatch(x, riskById, q));
     const box = document.getElementById('ncList');
     if(!filtered.length){
-      box.innerHTML = '<div class="empty-state">Nenhuma não conformidade registrada' + (ncFilter==='todos' ? ' ainda.' : ' com esse status.') + '</div>';
+      box.innerHTML = '<div class="empty-state">Nenhuma não conformidade encontrada para esse filtro.</div>';
       return;
     }
     box.innerHTML = filtered.map(x=>{
@@ -1993,6 +2521,7 @@ const ACTIONS_SEED=[];
               ${x.acaoId?`<span class="tag">ação: ${escapeHtml(x.acaoId)}</span>`:''}
             </div>
           </div>
+          <button class="del-icon-btn" data-del-nc="${x.id}" title="Excluir não conformidade" aria-label="Excluir não conformidade">✕</button>
         </div>
         <div class="action-meta-row">
           <div class="field-inline">
@@ -2002,8 +2531,12 @@ const ACTIONS_SEED=[];
             </select>
           </div>
           <div class="field-inline">
+            <span class="fk">Área/local</span>
+            <input type="text" data-nc-field="area" data-nc-id="${x.id}" list="dl-area" value="${escapeHtml(x.area||'')}" placeholder="não definida" style="width:120px;" />
+          </div>
+          <div class="field-inline">
             <span class="fk">Responsável</span>
-            <input type="text" data-nc-field="responsavel" data-nc-id="${x.id}" value="${escapeHtml(x.responsavel||'')}" placeholder="não definido" style="width:130px;" />
+            <input type="text" data-nc-field="responsavel" data-nc-id="${x.id}" list="dl-responsavel" value="${escapeHtml(x.responsavel||'')}" placeholder="não definido" style="width:130px;" />
           </div>
           <div class="field-inline">
             <span class="fk">Prazo</span>
@@ -2019,14 +2552,27 @@ const ACTIONS_SEED=[];
         renderNaoConformidades();
       });
     });
+    box.querySelectorAll('[data-del-nc]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        if(!confirm('Excluir este registro de não conformidade? Esta ação não pode ser desfeita.')) return;
+        updateNcField(btn.dataset.delNc, '_deleted', true);
+        showToast('Não conformidade excluída.', 'ok');
+        renderNaoConformidades();
+        renderDashboardIfActive();
+      });
+    });
   }
 
   document.getElementById('newNcToggleBtn').addEventListener('click', ()=>{
     const panel = document.getElementById('newNcPanel');
-    panel.style.display = panel.style.display==='none' ? 'block' : 'none';
+    const willOpen = panel.style.display==='none';
+    panel.style.display = willOpen ? 'block' : 'none';
+    if(willOpen) document.getElementById('ncDescricao').focus();
   });
   document.getElementById('ncCancelBtn').addEventListener('click', ()=>{
     document.getElementById('newNcPanel').style.display = 'none';
+    ['ncRisco','ncOrigem','ncArea','ncData','ncDescricao','ncResponsavel','ncPrazo'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
+    document.getElementById('ncStatus').textContent = '';
   });
   document.getElementById('ncSaveBtn').addEventListener('click', async ()=>{
     const descricao = document.getElementById('ncDescricao').value.trim();
@@ -2061,6 +2607,10 @@ const ACTIONS_SEED=[];
     document.querySelectorAll('#ncStatusFilter .filter-chip').forEach(c=>c.classList.remove('active'));
     chip.classList.add('active');
     ncFilter = chip.dataset.nst;
+    renderNaoConformidades();
+  });
+  document.getElementById('ncSearch').addEventListener('input', (e)=>{
+    ncQuery = e.target.value;
     renderNaoConformidades();
   });
 
@@ -2143,10 +2693,14 @@ const ACTIONS_SEED=[];
 
   document.getElementById('newRiskToggleBtn').addEventListener('click', ()=>{
     const panel = document.getElementById('newRiskPanel');
-    panel.style.display = panel.style.display==='none' ? 'block' : 'none';
+    const willOpen = panel.style.display==='none';
+    panel.style.display = willOpen ? 'block' : 'none';
+    if(willOpen) document.getElementById('nrNome').focus();
   });
   document.getElementById('nrCancelBtn').addEventListener('click', ()=>{
     document.getElementById('newRiskPanel').style.display = 'none';
+    ['nrNome','nrDescricao','nrCategoria','nrProcesso','nrDono','nrP','nrI'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
+    document.getElementById('nrStatus').textContent = '';
   });
   document.getElementById('nrSaveBtn').addEventListener('click', async ()=>{
     const nome = document.getElementById('nrNome').value.trim();
