@@ -485,9 +485,23 @@ tbody tr:hover{background:var(--surface-2);}
 .sync-status{ font-size:11px; font-family:var(--font-mono); color:var(--text-muted); }
 .sync-box .filter-search{ font-size:12px; padding:7px 9px; }
 
-.login-gate{ position:fixed; inset:0; z-index:1000; background:var(--ink); display:none; align-items:center; justify-content:center; padding:20px; }
-.login-card{ width:100%; max-width:380px; background:var(--surface-2); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); padding:32px 28px; }
-.login-status{ margin-top:16px; font-size:12.5px; text-align:center; color:var(--text-muted); min-height:18px; }
+.login-gate{
+  position:fixed; inset:0; z-index:1000; display:none; align-items:center; justify-content:flex-start;
+  padding:20px 6vw; background-color:#0a0a0a;
+  background-image:linear-gradient(90deg, rgba(10,10,10,.55) 0%, rgba(10,10,10,.25) 45%, rgba(10,10,10,0) 65%), url('assets/login-bg.jpg');
+  background-size:cover; background-position:right center; background-repeat:no-repeat;
+}
+.login-card{
+  width:100%; max-width:360px; background:rgba(26,26,26,.62); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.12); border-radius:var(--radius); box-shadow:0 20px 50px -12px rgba(0,0,0,.6); padding:32px 28px;
+}
+.login-card .eyebrow{ color:#FF9466; }
+.login-card h1{ color:#F5F2EF; }
+.login-card .sub{ color:#C6C2BC; }
+.login-status{ margin-top:16px; font-size:12.5px; text-align:center; color:#C6C2BC; min-height:18px; }
+@media (max-width:820px){
+  .login-gate{ justify-content:center; padding:20px; background-image:linear-gradient(rgba(10,10,10,.7), rgba(10,10,10,.7)), url('assets/login-bg.jpg'); background-position:center; }
+}
 .login-status.err{ color:var(--critical); }
 
 .new-action-form{ border:1px dashed var(--line); border-radius:8px; padding:12px; margin:10px 0; background:var(--surface); }
@@ -614,14 +628,11 @@ tbody tr:hover{background:var(--surface-2);}
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <div class="login-gate" id="loginGate">
   <div class="login-card">
-    <div class="brand-mark" style="margin:0 auto 18px;">
-      <img src="assets/logo.png" alt="Fulfillment Security" width="56" height="56" style="display:block; object-fit:contain;" />
-    </div>
-    <div class="eyebrow" style="text-align:center;">Fulfillment Security</div>
-    <h1 style="text-align:center; font-size:20px;">Gestão de Riscos · FBS-RS3</h1>
-    <div class="sub" style="text-align:center; margin-bottom:22px;">Entre com sua conta Google corporativa para acessar os dados</div>
-    <div id="gSignInBtn" style="display:flex; justify-content:center;"></div>
-    <div class="login-status" id="loginStatus"></div>
+    <div class="eyebrow" style="text-align:left;">Fulfillment Security</div>
+    <h1 style="text-align:left; font-size:22px;">Gestão de Riscos · FBS-RS3</h1>
+    <div class="sub" style="text-align:left; margin-bottom:22px;">Entre com sua conta Google corporativa para acessar os dados</div>
+    <div id="gSignInBtn" style="display:flex; justify-content:flex-start;"></div>
+    <div class="login-status" id="loginStatus" style="text-align:left;"></div>
   </div>
 </div>
 <div class="toast-stack" id="toastStack" aria-live="polite"></div>
@@ -1500,7 +1511,7 @@ const ACTIONS_SEED=[];
     showGate();
     if(window.google && google.accounts && google.accounts.id){
       google.accounts.id.initialize({ client_id: GOOGLE_CLIENT_ID, callback: window.handleCredentialResponse });
-      google.accounts.id.renderButton(document.getElementById('gSignInBtn'), { theme:'outline', size:'large', text:'signin_with', width:280 });
+      google.accounts.id.renderButton(document.getElementById('gSignInBtn'), { theme:'filled_black', size:'large', text:'signin_with', width:280 });
     } else {
       setTimeout(initAuthGate, 300);
     }
